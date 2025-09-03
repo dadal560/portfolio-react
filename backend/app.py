@@ -1,11 +1,14 @@
-from flask import Flask, render_template , request , redirect, flash
+from flask import Flask, jsonify, request 
+from flask_cors import CORS
 from flask_mail import Mail, Message
 from dotenv import load_dotenv
 import os
 
+# Charger les variables d'environnement
 load_dotenv()
 
 app = Flask(__name__)
+CORS(app)  # Autoriser le front à communiquer avec le back
 
 app.secret_key = os.getenv('FLASK_SECRET_KEY')
 
@@ -21,25 +24,26 @@ app.config.update(
 
 mail = Mail(app)
 
-@app.route("/", methods=["GET", "POST"])
-def index():
-    if request.method == "POST":
-        client_email = request.form["email"]
-        client_message = request.form["message"]
-        try:
-            msg = Message(
-                subject="Flask mail",
-                recipients=[os.getenv("MAIL_USERNAME")],  # Destinataire
-                body=f"Adresse de l'expéditeur : {client_email}\n\nMessage :\n{client_message}"
-            )
-            mail.send(msg)
-            flash("Votre message a été envoyé avec succès", "success")
-            return redirect("/")
-        except Exception as e:
-            flash(f"Erreur lors de l'envoi : {str(e)}", "danger")
-            return redirect("/")
+@app.route("/send-email", methods=["POST"])
+def send_email():
+    data = request.get_json()
+    client_email = data.get("email")
+    subject = data.get("subject", "Message depuis Portfolio")
+    message_body = data.get("message")
 
-    return render_template("index.html")
+    if not client_email or not message_body:
+        return jsonify({"status": "error", "message": "Email et message requis"}), 400
+
+    try:
+        msg = Message(
+            subject=subject,
+            recipients=[os.getenv("MAIL_USERNAME")],  # Ton email
+            body=f"Adresse de l'expéditeur : {client_email}\n\nMessage :\n{message_body}"
+        )
+        mail.send(msg)
+        return jsonify({"status": "success", "message": "Email envoyé avec succès"})
+    except Exception as e:
+        return jsonify({"status": "error", "message": f"Erreur lors de l'envoi : {str(e)}"}), 500
 
 if __name__ == "__main__":
     app.run(debug=True, host="127.0.0.1", port=5000)

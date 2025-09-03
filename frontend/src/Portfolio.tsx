@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, FormEvent } from 'react';
+import React, { useState, useEffect, useRef, type FormEvent } from 'react';
 import { ChevronDown, Github, Linkedin, Mail, ExternalLink, Code, Palette, Cpu, Star, Zap, Target } from 'lucide-react';
 
 // Service pour appeler l'API Flask
@@ -20,7 +20,7 @@ const Portfolio = () => {
   const [currentSection, setCurrentSection] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [cursorVariant, setCursorVariant] = useState('default');
+  const [ setCursorVariant] = useState('default');
   const heroRef = useRef(null);
 
   // Contact form state
@@ -283,7 +283,7 @@ const Portfolio = () => {
       </section>
 
       {/* CSS Animations */}
-      <style jsx>{`
+      <style>{`
         @keyframes float {
           0% {
             transform: translateY(100vh) translateX(0px) rotate(0deg);
@@ -366,7 +366,7 @@ const Portfolio = () => {
               
               {/* Skills */}
               <div className="space-y-6">
-                {skills.map((skill, index) => (
+                {skills.map((skill) => (
                   <div key={skill.name} className="group">
                     <div className="flex items-center mb-2">
                       <skill.icon className="w-6 h-6 mr-3 text-orange-400" />
