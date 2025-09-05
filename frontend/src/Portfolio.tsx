@@ -1,5 +1,7 @@
-import React, { useState, useEffect, useRef, type FormEvent } from 'react';
-import { ChevronDown, Github, Linkedin, Mail, ExternalLink, Code, Palette, Cpu, Star, Zap, Target } from 'lucide-react';
+import { useState, useEffect, useRef, type FormEvent } from 'react';
+import { ChevronDown, Mail, ExternalLink, Code, Palette, Cpu, Star, Zap, Target } from 'lucide-react';
+import {FaGithub as Github, FaLinkedin as Linkedin} from 'react-icons/fa';
+
 
 // Service pour appeler l'API Flask
 const sendEmail = async (email: string, subject: string, message: string) => {
@@ -10,17 +12,19 @@ const sendEmail = async (email: string, subject: string, message: string) => {
       body: JSON.stringify({ email, subject, message }),
     });
     return await res.json();
-  } catch (err: any) {
-    return { status: 'error', message: err.message };
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      return { status: 'error', message: err.message };
+    }
+    return { status: 'error', message: 'Erreur inconnue' };
   }
 };
 
 const Portfolio = () => {
   const [scrollY, setScrollY] = useState(0);
-  const [currentSection, setCurrentSection] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [ setCursorVariant] = useState('default');
+  const [cursorVariant, setCursorVariant] = useState<'default' | 'hover'>('default');
   const heroRef = useRef(null);
 
   // Contact form state
@@ -87,7 +91,8 @@ const Portfolio = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-black text-white overflow-x-hidden relative">
+
+    <div className="min-h-screen bg-black text-white overflow-x-hidden relative" style={{ cursor: cursorVariant === 'hover' ? 'pointer' : 'default' }}>
       
       {/* Effet de grille animée */}
       <div className="fixed inset-0 opacity-10 pointer-events-none">
@@ -103,9 +108,9 @@ const Portfolio = () => {
 
       {/* Orbs flottants */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        {[...Array(5)].map((_, i) => (
+        {[...Array(5)].map((_) => (
           <div
-            key={i}
+            key={_}
             className="absolute rounded-full bg-gradient-radial from-orange-500/20 to-transparent animate-pulse"
             style={{
               width: `${Math.random() * 300 + 100}px`,
@@ -145,7 +150,7 @@ const Portfolio = () => {
 
         {/* Particules flottantes animées */}
         <div className="absolute inset-0 overflow-hidden">
-          {[...Array(30)].map((_, i) => {
+          {[...Array(30)].map((_) => {
             const size = Math.random() * 8 + 2;
             const duration = Math.random() * 15 + 10;
             const delay = Math.random() * 5;
@@ -155,7 +160,7 @@ const Portfolio = () => {
             
             return (
               <div
-                key={i}
+                key={_}
                 className={`absolute ${color} rounded-full animate-float shadow-lg`}
                 style={{
                   width: `${size}px`,
@@ -176,7 +181,7 @@ const Portfolio = () => {
         {/* Lignes électriques animées */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20">
           {[...Array(6)].map((_, i) => (
-            <g key={i}>
+            <g key={_}>
               <line
                 x1={`${Math.random() * 100}%`}
                 y1="0%"
@@ -207,7 +212,7 @@ const Portfolio = () => {
             <h1 className="text-7xl md:text-9xl font-bold mb-6 bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 bg-clip-text text-transparent relative">
               Gwendal Henry
               {/* Clones pour effet glitch */}
-              <span className="absolute top-3 left-0 text-7xl md:text-9xl font-bold opacity-20 animate-glitch-1" style={{ color: '#ff6b6b' }}>
+              <span className="absolute top-3 left-0 text-7xl md:text-9xl font-bold opacity-22 animate-glitch-1" style={{ color: '#ff6b6b' }}>
                 Gwendal Henry
               </span>
               <span className="absolute top-5 left-0 text-7xl md:text-9xl font-bold opacity-20 animate-glitch-2" style={{ color: '#4ecdc4' }}>
@@ -234,8 +239,8 @@ const Portfolio = () => {
               { icon: Star, number: '15+', label: 'Projets' },
               { icon: Zap, number: '2+', label: 'Années' },
               { icon: Target, number: '100%', label: 'Passion' }
-            ].map((stat, index) => (
-              <div key={index} className="text-center group">
+            ].map((stat) => (
+              <div key={stat.label} className="text-center group">
                 <stat.icon className="w-8 h-8 mx-auto mb-2 text-orange-400 group-hover:scale-110 transition-transform" />
                 <div className="text-2xl font-bold bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">
                   {stat.number}
@@ -249,7 +254,7 @@ const Portfolio = () => {
           <div className="flex flex-col sm:flex-row gap-6 justify-center animate-fadeInUp" style={{ animationDelay: '2s' }}>
             <button 
               className="group relative px-8 py-4 bg-gradient-to-r from-orange-500 to-red-600 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/25 overflow-hidden"
-              onClick={() => document.getElementById('projects').scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
               onMouseEnter={() => setCursorVariant('hover')}
               onMouseLeave={() => setCursorVariant('default')}
             >
@@ -260,7 +265,7 @@ const Portfolio = () => {
             </button>
             <button 
               className="group px-8 py-4 border-2 border-gray-600 rounded-full font-semibold text-lg transition-all duration-300 hover:border-orange-500 hover:text-orange-400 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/20 relative overflow-hidden"
-              onClick={() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
               onMouseEnter={() => setCursorVariant('hover')}
               onMouseLeave={() => setCursorVariant('default')}
             >
@@ -410,9 +415,9 @@ const Portfolio = () => {
           </h2>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
+            {projects.map((project) => (
               <div 
-                key={index}
+                key={project.title}
                 className="group relative bg-gray-900 rounded-2xl overflow-hidden hover:scale-105 transition-all duration-500 hover:shadow-2xl hover:shadow-orange-500/20"
               >
                 <div className="aspect-video bg-gradient-to-br from-orange-500/20 to-red-500/20 relative overflow-hidden">
@@ -429,9 +434,9 @@ const Portfolio = () => {
                   <p className="text-gray-300 mb-4 leading-relaxed">{project.description}</p>
                   
                   <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tech.map((tech, techIndex) => (
+                    {project.tech.map((tech) => (
                       <span 
-                        key={techIndex}
+                        key={tech}
                         className="px-3 py-1 bg-orange-500/20 text-orange-300 rounded-full text-sm font-medium"
                       >
                         {tech}
@@ -457,7 +462,7 @@ const Portfolio = () => {
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-6xl font-bold mb-8 bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">Collaborons</h2>
             <p className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto leading-relaxed">
-              Prêt à créer quelque chose d'extraordinaire ensemble ? Contactez-moi pour donner vie à vos idées les plus ambitieuses.
+              Prêt à créer quelque chose d'extraordinaire ensemble ? Contactez-moi pour donner vie à vos idées.
             </p>
             <form onSubmit={handleSendEmail} className="flex flex-col gap-6 max-w-xl mx-auto">
               <input type="email" placeholder="Votre email" value={email} onChange={(e)=>setEmail(e.target.value)} required className="px-4 py-3 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:border-orange-500"/>
@@ -472,12 +477,12 @@ const Portfolio = () => {
         </section>
             
           {/* Social Links */}
-          <div className="flex justify-center gap-6">
+          <div className="flex justify-center gap-6 mt-6">
             <a href="https://github.com/dadal560" className="p-4 bg-gray-800 rounded-full hover:bg-orange-500 transition-colors duration-300 hover:scale-110">
-              <Github className="w-6 h-6" />
+              <Github className="w-10 h-10" />
             </a>
             <a href="https://linkedin.com" className="p-4 bg-gray-800 rounded-full hover:bg-orange-500 transition-colors duration-300 hover:scale-110">
-              <Linkedin className="w-6 h-6" />
+              <Linkedin className="w-10 h-10" />
             </a>
           </div>
         </div>
