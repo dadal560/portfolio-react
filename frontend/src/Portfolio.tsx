@@ -61,14 +61,14 @@ const Portfolio = () => {
 
   const projects = [
     {
-      title: "E-Commerce Platform",
-      description: "Application moderne de commerce électronique avec React et Node.js",
-      tech: ["React", "Node.js", "MongoDB"],
+      title: "Application web",
+      description: "Application moderne d'événement de musique dub",
+      tech: ["Vuejs", "Symfony", "Postgresql"],
       image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop"
     },
     {
-      title: "Dashboard Analytics",
-      description: "Interface d'analyse de données avec visualisations interactives",
+      title: "Audit RGAA et RGESN",
+      description: "Audit d’écoconception et d’accessibilité sur une page du site d'Intersport",
       tech: ["React", "D3.js", "Python"],
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop"
     },
