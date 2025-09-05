@@ -473,14 +473,11 @@ const Portfolio = () => {
             
           {/* Social Links */}
           <div className="flex justify-center gap-6">
-            <a href="https://github.com" className="p-4 bg-gray-800 rounded-full hover:bg-orange-500 transition-colors duration-300 hover:scale-110">
+            <a href="https://github.com/dadal560" className="p-4 bg-gray-800 rounded-full hover:bg-orange-500 transition-colors duration-300 hover:scale-110">
               <Github className="w-6 h-6" />
             </a>
             <a href="https://linkedin.com" className="p-4 bg-gray-800 rounded-full hover:bg-orange-500 transition-colors duration-300 hover:scale-110">
               <Linkedin className="w-6 h-6" />
-            </a>
-            <a href="mailto:contact@monportfolio.com" className="p-4 bg-gray-800 rounded-full hover:bg-orange-500 transition-colors duration-300 hover:scale-110">
-              <Mail className="w-6 h-6" />
             </a>
           </div>
         </div>
