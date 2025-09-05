@@ -69,7 +69,7 @@ const Portfolio = () => {
     {
       title: "Audit RGAA et RGESN",
       description: "Audit d’écoconception et d’accessibilité sur une page du site d'Intersport",
-      tech: ["React", "D3.js", "Python"],
+      tech: [],
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop"
     },
     {
