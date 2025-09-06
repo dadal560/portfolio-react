@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, type FormEvent } from 'react';
-import { ChevronDown, Mail, ExternalLink, Code, Palette, Cpu, Star, Zap, Target, Server} from 'lucide-react';
+import { ChevronDown, Mail, ExternalLink, Code, Cpu, Star, Zap, Target, Server} from 'lucide-react';
 import {FaGithub as Github, FaLinkedin as Linkedin} from 'react-icons/fa';
 
 
@@ -65,30 +65,29 @@ const Portfolio = () => {
 
   const projects = [
     {
-      title: "Application web",
+      title: "Application web ScoopDub",
       description: "Application web de gestion d’événements de musique dub",
-      tech: ["Vuejs", "Symfony", "Postgresql"],
+      tech: ["Vue.js", "Symfony", "Postgresql", "API"],
       image: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=600&h=400&fit=crop"
     },
     {
-      title: "Audit RGAA et RGESN",
-      description: "Audit d’écoconception et d’accessibilité sur une page du site d'Intersport",
-      tech: [],
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop"
-    },
-    {
-      title: "Educational keylogger",
-      description: "Un projet éducatif illustrant le fonctionnement d'un keylogger basique",
-      tech: ["Python"],
-      image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=400&fit=crop"
-    }
-  ];
+    title: "Omni-Chat",
+    description: "Projet collaboratif de messagerie multi-plateforme intégrant plusieurs services dans une interface unique.Intégration API.",
+    tech: ["Vue.js", "Node.js", "Symfony", "API", "Lua", "Java"],
+    image: "https://images.unsplash.com/photo-1581091215361-8c1c4dc9fa6d?w=600&h=400&fit=crop"
+  },
+  {
+    title: "Educational keylogger",
+    description: "Projet éducatif open-source illustrant le fonctionnement d’un keylogger basique en Python. Objectif pédagogique et apprentissage des notions de capture d’événements clavier.",
+    tech: ["Python"],
+    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=400&fit=crop"
+  }
+];
 
   const skills = [
     { name: "Frontend", icon: Code, percentage: 85, color: "from-blue-500 to-purple-600" },
     { name: "Backend", icon: Cpu, percentage: 80, color: "from-green-500 to-teal-500" },
-    { name: "Design", icon: Palette, percentage: 70, color: "from-pink-500 to-red-500" },
-    { name: "DevOps", icon: Server, percentage: 60, color: "from-yellow-500 to-orange-600" }
+    { name: "Cybersécurité & Outils", icon: Server, percentage: 60, color: "from-yellow-500 to-orange-600" }
   ];
 
   return (
@@ -223,15 +222,14 @@ const Portfolio = () => {
           </div>
           
           <h2 className="text-2xl md:text-4xl font-light mb-8 text-gray-300 animate-fadeInUp" style={{ animationDelay: '0.5s' }}>
-            Développeur Full-Stack & Designer
+            Développeur Full-Stack & Cybersecurity
           </h2>
           
           {/* Ligne décorative animée */}
           <div className="w-32 h-1 bg-gradient-to-r from-orange-400 to-red-500 mx-auto mb-8 animate-pulse" />
           
           <p className="text-lg md:text-xl max-w-2xl mx-auto mb-12 text-gray-400 leading-relaxed animate-fadeInUp" style={{ animationDelay: '1s' }}>
-            De la destruction naît la création. Comme Pompéi renaît de ses cendres, 
-            je transforme vos idées en expériences numériques extraordinaires.
+            Tout acte de création est d'abord un acte de destruction.
           </p>
           
           {/* Stats animés */}
@@ -362,12 +360,13 @@ const Portfolio = () => {
                 À propos
               </h2>
               <p className="text-xl text-gray-300 mb-6 leading-relaxed">
-                Étudiant en deuxième année de licence informatique, passionné par l'art de créer 
-                des expériences numériques qui marquent les esprits.
+                  Actuellement en Licence 3 Informatique à l’Université de La Rochelle, 
+                  je conçois des applications web robustes tout en intégrant les meilleures pratiques de cybersécurité.
               </p>
               <p className="text-lg text-gray-400 mb-8 leading-relaxed">
-                Inspiré par la grandeur tragique de l'art classique, je mélange technique moderne 
-                et esthétique intemporelle pour donner vie à vos projets les plus ambitieux.
+                  Inspiré par l'innovation technologique et sécurité, 
+                  j’allie backend, interfaces modernes et bonnes pratiques 
+                  cybersécurité pour donner vie à des projets créatifs et accessibles.
               </p>
               
               {/* Skills */}
