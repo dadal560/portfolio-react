@@ -77,9 +77,9 @@ const Portfolio = () => {
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop"
     },
     {
-      title: "Mobile App Design",
+      title: "educational-keylogger",
       description: "Application mobile avec interface utilisateur moderne",
-      tech: ["React Native", "Firebase", "Figma"],
+      tech: ["Python"],
       image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=400&fit=crop"
     }
   ];
