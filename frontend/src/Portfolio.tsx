@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, type FormEvent } from 'react';
-import { ChevronDown, Mail, ExternalLink, Code, Palette, Cpu, Star, Zap, Target } from 'lucide-react';
+import { ChevronDown, Mail, ExternalLink, Code, Palette, Cpu, Star, Zap, Target, Server} from 'lucide-react';
 import {FaGithub as Github, FaLinkedin as Linkedin} from 'react-icons/fa';
 
 
@@ -66,9 +66,9 @@ const Portfolio = () => {
   const projects = [
     {
       title: "Application web",
-      description: "Application moderne d'événement de musique dub",
+      description: "Application web de gestion d’événements de musique dub",
       tech: ["Vuejs", "Symfony", "Postgresql"],
-      image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop"
+      image: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=600&h=400&fit=crop"
     },
     {
       title: "Audit RGAA et RGESN",
@@ -77,17 +77,18 @@ const Portfolio = () => {
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop"
     },
     {
-      title: "educational-keylogger",
-      description: "Application mobile avec interface utilisateur moderne",
+      title: "Educational keylogger",
+      description: "Un projet éducatif illustrant le fonctionnement d'un keylogger basique",
       tech: ["Python"],
       image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=400&fit=crop"
     }
   ];
 
   const skills = [
-    { name: "Frontend", icon: Code, percentage: 90, color: "from-blue-500 to-purple-600" },
-    { name: "Design", icon: Palette, percentage: 85, color: "from-pink-500 to-red-500" },
-    { name: "Backend", icon: Cpu, percentage: 75, color: "from-green-500 to-teal-500" }
+    { name: "Frontend", icon: Code, percentage: 85, color: "from-blue-500 to-purple-600" },
+    { name: "Backend", icon: Cpu, percentage: 80, color: "from-green-500 to-teal-500" },
+    { name: "Design", icon: Palette, percentage: 70, color: "from-pink-500 to-red-500" },
+    { name: "DevOps", icon: Server, percentage: 60, color: "from-yellow-500 to-orange-600" }
   ];
 
   return (
