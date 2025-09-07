@@ -27,6 +27,10 @@ const Portfolio = () => {
   const [cursorVariant, setCursorVariant] = useState<'default' | 'hover'>('default');
   const heroRef = useRef(null);
 
+  // Animation toggle
+  const [animationsEnabled, setAnimationsEnabled] = useState(true);
+  const toggleAnimations = () => setAnimationsEnabled(!animationsEnabled);
+
   // Contact form state
   const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('');
@@ -93,6 +97,12 @@ const Portfolio = () => {
   return (
 
     <div className="min-h-screen bg-black text-white overflow-x-hidden relative" style={{ cursor: cursorVariant === 'hover' ? 'pointer' : 'default' }}>
+      <button
+        onClick={toggleAnimations}
+        className="fixed top-4 right-4 z-50 px-4 py-2 bg-gray-800 text-white rounded-lg border border-gray-600 hover:bg-orange-500 transition-colors"
+      >
+        {animationsEnabled ? 'Désactiver les animations' : 'Activer les animations'}
+      </button>
       
       {/* Effet de grille animée */}
       <div className="fixed inset-0 opacity-10 pointer-events-none">
@@ -235,8 +245,8 @@ const Portfolio = () => {
           {/* Stats animés */}
           <div className="flex justify-center gap-8 mb-12 animate-fadeInUp" style={{ animationDelay: '1.5s' }}>
             {[
-              { icon: Star, number: '15+', label: 'Projets' },
-              { icon: Zap, number: '2+', label: 'Années' },
+              { icon: Star, number: '10+', label: 'Projets' },
+              { icon: Zap, number: '3+', label: 'Années' },
               { icon: Target, number: '100%', label: 'Passion' }
             ].map((stat) => (
               <div key={stat.label} className="text-center group">
