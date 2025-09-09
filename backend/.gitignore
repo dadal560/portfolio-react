@@ -1,4 +1,14 @@
 venv/
-.env
+
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+
+build/
+*.spec
+
+*.log
+keylogs/
+
+build/main
