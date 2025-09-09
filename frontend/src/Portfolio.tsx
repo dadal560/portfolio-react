@@ -98,12 +98,11 @@ const Portfolio = () => {
 
     <div className="min-h-screen bg-black text-white overflow-x-hidden relative" style={{ cursor: cursorVariant === 'hover' ? 'pointer' : 'default' }}>
       <button
-        onClick={toggleAnimations}
-        className="fixed top-4 right-4 z-50 px-4 py-2 bg-gray-800 text-white rounded-lg border border-gray-600 hover:bg-orange-500 transition-colors"
-      >
-        {animationsEnabled ? 'Désactiver les animations' : 'Activer les animations'}
-      </button>
-      
+      onClick={toggleAnimations}
+      className="fixed top-4 right-4 z-50 px-4 py-2 bg-gray-800 text-white rounded-lg border border-gray-600 hover:bg-orange-500 transition-colors"
+    >
+      {animationsEnabled ? 'Désactiver les animations' : 'Activer les animations'}
+    </button>
       {/* Effet de grille animée */}
       <div className="fixed inset-0 opacity-10 pointer-events-none">
         <div className="absolute inset-0" style={{
