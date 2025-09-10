@@ -158,6 +158,7 @@ const Portfolio = () => {
         />
 
         {/* Particules flottantes animées */}
+        {animationsEnabled && (
         <div className="absolute inset-0 overflow-hidden">
           {[...Array(30)].map((_) => {
             const size = Math.random() * 8 + 2;
@@ -186,6 +187,7 @@ const Portfolio = () => {
             );
           })}
         </div>
+      )}
 
         {/* Lignes électriques animées */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20">
@@ -220,16 +222,20 @@ const Portfolio = () => {
             {/* Effet de glitch sur le titre */}
             <h1 className="text-7xl md:text-9xl font-bold mb-6 bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 bg-clip-text text-transparent relative">
               Gwendal Henry
-              {/* Clones pour effet glitch */}
-              <span className="absolute top-3 left-0 text-7xl md:text-9xl font-bold opacity-22 animate-glitch-1" style={{ color: '#ff6b6b' }}>
-                Gwendal Henry
-              </span>
-              <span className="absolute top-5 left-0 text-7xl md:text-9xl font-bold opacity-20 animate-glitch-2" style={{ color: '#4ecdc4' }}>
-                Gwendal Henry
-              </span>
+              {/* Clones pour effet glitch uniquement si les animations sont activées */}
+              {animationsEnabled && (
+                <>
+                  <span className="absolute top-3 left-0 text-7xl md:text-9xl font-bold opacity-22 animate-glitch-1" style={{ color: '#ff6b6b' }}>
+                    Gwendal Henry
+                  </span>
+                  <span className="absolute top-5 left-0 text-7xl md:text-9xl font-bold opacity-20 animate-glitch-2" style={{ color: '#4ecdc4' }}>
+                    Gwendal Henry
+                  </span>
+                </>
+              )}
             </h1>
           </div>
-          
+              
           <h2 className="text-2xl md:text-4xl font-light mb-8 text-gray-300 animate-fadeInUp" style={{ animationDelay: '0.5s' }}>
             Développeur Full-Stack & Cybersecurity
           </h2>
