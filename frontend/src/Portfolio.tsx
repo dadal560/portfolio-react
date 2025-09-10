@@ -103,36 +103,6 @@ const Portfolio = () => {
     >
       {animationsEnabled ? 'Désactiver les animations' : 'Activer les animations'}
     </button>
-      {/* Effet de grille animée */}
-      <div className="fixed inset-0 opacity-10 pointer-events-none">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `
-            linear-gradient(rgba(255,165,0,0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,165,0,0.1) 1px, transparent 1px)
-          `,
-          backgroundSize: '50px 50px',
-          animation: 'gridMove 20s linear infinite'
-        }} />
-      </div>
-
-      {/* Orbs flottants */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        {[...Array(5)].map((_) => (
-          <div
-            key={_}
-            className="absolute rounded-full bg-gradient-radial from-orange-500/20 to-transparent animate-pulse"
-            style={{
-              width: `${Math.random() * 300 + 100}px`,
-              height: `${Math.random() * 300 + 100}px`,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,    
-              animationDuration: `${Math.random() * 10 + 10}s`,
-              filter: 'blur(40px)'
-            }}
-          />
-        ))}
-      </div>
       {/* Hero Section avec parallax */}
       <section ref={heroRef} className="relative h-screen flex items-center justify-center overflow-hidden">
         {/* Background avec effet parallax et distorsion */}
@@ -187,9 +157,10 @@ const Portfolio = () => {
             );
           })}
         </div>
-      )}
+        )}
 
         {/* Lignes électriques animées */}
+        {animationsEnabled && (
         <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20">
           {[...Array(6)].map((_, i) => (
             <g key={_}>
@@ -213,6 +184,7 @@ const Portfolio = () => {
             </linearGradient>
           </defs>
         </svg>
+        )}
 
         {/* Contenu principal avec effet glitch */}
         <div className={`relative z-10 text-center px-8 transform transition-all duration-2000 ${
