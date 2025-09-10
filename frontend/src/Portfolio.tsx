@@ -71,7 +71,7 @@ const Portfolio = () => {
   {
     title: "Application web ScoopDub",
     description: "Application web de gestion d’événements de musique dub",
-    tech: ["Vue.js", "Symfony", "Postgresql", "API", "Php", "Node.js"],
+    tech: ["Vue.js", "Symfony", "Postgresql", "API RESTful", "Php", "Node.js"],
     image: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=600&h=400&fit=crop",
     link: "https://github.com/dadal560/scoop-dub-symfony-vue"
   },
@@ -125,7 +125,7 @@ const Portfolio = () => {
         <div 
           className="absolute inset-0 opacity-30"
           style={{
-            background: `radial-gradient(circle at ${mousePosition.x/window.innerWidth*100}% ${mousePosition.y/window.innerHeight*100}%, rgba(255,165,0,0.3) 0%, transparent 50%)`,
+            background: `radial-gradient(circle at ${mousePosition.x/window.innerWidth*100}% ${mousePosition.y/window.innerHeight*100}%, rgba(0, 0, 0, 0.63) 0%, transparent 50%)`,
             filter: 'blur(100px)'
           }}
         />
@@ -216,7 +216,9 @@ const Portfolio = () => {
           </h2>
           
           {/* Ligne décorative animée */}
+          {animationsEnabled &&
           <div className="w-32 h-1 bg-gradient-to-r from-orange-400 to-red-500 mx-auto mb-8 animate-pulse" />
+          }
           
           <p className="text-lg md:text-xl max-w-2xl mx-auto mb-12 text-gray-400 leading-relaxed animate-fadeInUp" style={{ animationDelay: '1s' }}>
             Tout acte de création est d'abord un acte de destruction.
