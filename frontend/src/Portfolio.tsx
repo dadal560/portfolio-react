@@ -68,25 +68,28 @@ const Portfolio = () => {
     
 
   const projects = [
-    {
-      title: "Application web ScoopDub",
-      description: "Application web de gestion d’événements de musique dub",
-      tech: ["Vue.js", "Symfony", "Postgresql", "API"],
-      image: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=600&h=400&fit=crop"
-    },
-    {
+  {
+    title: "Application web ScoopDub",
+    description: "Application web de gestion d’événements de musique dub",
+    tech: ["Vue.js", "Symfony", "Postgresql", "API", "Php", "Node.js"],
+    image: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=600&h=400&fit=crop",
+    link: "https://github.com/dadal560/scoop-dub-symfony-vue"
+  },
+  {
     title: "Omni-Chat",
     description: "Projet collaboratif de messagerie multi-plateforme intégrant plusieurs services dans une interface unique.Intégration API.",
     tech: ["Vue.js", "Node.js", "Symfony", "API", "Lua", "Java"],
-    image: "https://images.unsplash.com/photo-1581091215361-8c1c4dc9fa6d?w=600&h=400&fit=crop"
+    image: "https://images.unsplash.com/photo-1581091215361-8c1c4dc9fa6d?w=600&h=400&fit=crop",
+    link: "https://github.com/KyozuFR/Omni-Chat"
   },
   {
     title: "Educational keylogger",
     description: "Projet éducatif open-source illustrant le fonctionnement d’un keylogger basique en Python. Objectif pédagogique et apprentissage des notions de capture d’événements clavier.",
     tech: ["Python"],
-    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=400&fit=crop"
+    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=400&fit=crop",
+    link: "https://github.com/dadal560/educational-keylogger"
   }
-];
+  ];
 
   const skills = [
     { name: "Frontend", icon: Code, percentage: 85, color: "from-blue-500 to-purple-600" },
@@ -432,11 +435,15 @@ const Portfolio = () => {
                       </span>
                     ))}
                   </div>
-                  
-                  <button className="flex items-center text-orange-400 hover:text-orange-300 transition-colors group-hover:translate-x-2 transition-transform duration-300">
+                  <a 
+                    href={project.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex items-center text-orange-400 hover:text-orange-300 transition-colors group-hover:translate-x-2 transition-transform duration-300"
+                  >
                     Voir le projet
                     <ExternalLink className="ml-2 w-4 h-4" />
-                  </button>
+                  </a>
                 </div>
               </div>
             ))}
