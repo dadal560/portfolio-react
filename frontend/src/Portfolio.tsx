@@ -88,6 +88,13 @@ const Portfolio = () => {
     tech: ["Python"],
     image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=400&fit=crop",
     link: "https://github.com/dadal560/educational-keylogger"
+  },
+  {
+  "title": "Mailer Flask",
+  "description": "Une application web Flask simple permettant d'envoyer des emails via un formulaire de contact sécurisé avec validation et logging.",
+  "tech": ["Python", "Flask", "Flask-Mail", "Flask-WTF"],
+  "image": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=400&fit=crop",
+  "link": "https://github.com/dadal560/flask-mailer"
   }
   ];
 
@@ -125,7 +132,7 @@ const Portfolio = () => {
         <div 
           className="absolute inset-0 opacity-30"
           style={{
-            background: `radial-gradient(circle at ${mousePosition.x/window.innerWidth*100}% ${mousePosition.y/window.innerHeight*100}%, rgba(0, 0, 0, 0.63) 0%, transparent 50%)`,
+            background: `radial-gradient(circle at ${mousePosition.x/window.innerWidth*100}% ${mousePosition.y/window.innerHeight*100}%, rgba(255, 171, 15, 0.3) 0%, transparent 50%)`,
             filter: 'blur(100px)'
           }}
         />
