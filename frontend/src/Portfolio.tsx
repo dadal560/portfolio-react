@@ -90,11 +90,11 @@ const Portfolio = () => {
     link: "https://github.com/dadal560/educational-keylogger"
   },
   {
-  "title": "Mailer Flask",
-  "description": "Une application web Flask simple permettant d'envoyer des emails via un formulaire de contact sécurisé avec validation et logging.",
-  "tech": ["Python", "Flask", "Flask-Mail", "Flask-WTF"],
-  "image": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=400&fit=crop",
-  "link": "https://github.com/dadal560/flask-mailer"
+    title: "Mailer Flask",
+    description: "Une application web Flask simple permettant d'envoyer des emails via un formulaire de contact sécurisé avec validation et logging.",
+    tech: ["Python", "Flask", "Flask-Mail", "Flask-WTF"],
+    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=400&fit=crop",
+    link: "https://github.com/dadal560/flask-mailer"
   }
   ];
 
