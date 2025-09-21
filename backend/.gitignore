@@ -1,14 +1,20 @@
+# Environnements virtuels
+.venv/
+env/
 venv/
+
+# Fichiers de configuration locaux
 .env
+
+# Python cache
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 
-build/
-*.spec
-
+# Logs
 *.log
-keylogs/
 
-build/main
+# IDE
+.vscode/
+.idea/
