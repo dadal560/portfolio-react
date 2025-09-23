@@ -125,10 +125,10 @@ const Portfolio = () => {
           }}
         />
         
-        {/* Overlay gradient amélioré pour une transition plus naturelle */}
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/70 via-gray-950/40 to-black/90" />
+        {/* Overlay gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/20 via-gray-950/20 to-black/90" />
         
-        {/* Effet de vague de chaleur amélioré */}
+        {/* Effet de vague de chaleur */}
         <div 
           className="absolute inset-0 opacity-20"
           style={{
@@ -202,17 +202,15 @@ const Portfolio = () => {
         }`}>
           <div className="relative">
             {/* Titre avec gradient harmonieux */}
-            <h1 className="text-7xl md:text-9xl font-bold mb-6 bg-gradient-to-r from-amber-300 via-orange-400 to-red-500 bg-clip-text text-transparent relative">
+            <h1 className="text-7xl md:text-9xl font-bold mb-6 bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 bg-clip-text text-transparent relative">
               Gwendal Henry
               {/* Clones pour effet glitch avec couleurs coordonnées */}
               {animationsEnabled && (
                 <>
-                  <span className="absolute top-3 left-0 text-7xl md:text-9xl font-bold opacity-20 animate-glitch-1" style={{ color: '#f59e0b' }}>
-                    Gwendal Henry
-                  </span>
-                  <span className="absolute top-5 left-0 text-7xl md:text-9xl font-bold opacity-15 animate-glitch-2" style={{ color: '#fb923c' }}>
-                    Gwendal Henry
-                  </span>
+                  <span className="absolute top-3 left-0 text-7xl md:text-9xl font-bold opacity-22 animate-glitch-1" style={{color: 'rgb(255, 107, 107)'}}>
+                    Gwendal Henry</span>
+                  <span className="absolute top-5 left-0 text-7xl md:text-9xl font-bold opacity-20 animate-glitch-2" style={{color: 'rgb(78, 205, 196)'}}>
+                    Gwendal Henry</span>
                 </>
               )}
             </h1>
@@ -383,11 +381,11 @@ const Portfolio = () => {
               <h2 className="text-5xl font-bold mb-8 bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 bg-clip-text text-transparent">
                 À propos
               </h2>
-              <p className="text-xl text-amber-100/80 mb-6 leading-relaxed">
+              <p className="text-xl text-gray-300 mb-6 leading-relaxed">
                   Actuellement en Licence 3 Informatique à l'Université de La Rochelle, 
                   je conçois des applications web robustes tout en intégrant les meilleures pratiques de cybersécurité.
               </p>
-              <p className="text-lg text-amber-100/60 mb-8 leading-relaxed">
+              <p className="text-lg text-gray-400 mb-8 leading-relaxed">
                   Inspiré par l'innovation technologique et sécurité, 
                   j'allie backend, interfaces modernes et bonnes pratiques 
                   cybersécurité pour donner vie à des projets créatifs et accessibles.
@@ -399,8 +397,8 @@ const Portfolio = () => {
                   <div key={skill.name} className="group">
                     <div className="flex items-center mb-2">
                       <skill.icon className="w-6 h-6 mr-3 text-amber-400" />
-                      <span className="text-lg font-semibold text-amber-100">{skill.name}</span>
-                      <span className="ml-auto text-amber-400 font-bold">{skill.percentage}%</span>
+                      <span className="text-lg font-semibold text-white">{skill.name}</span>
+                      <span className="ml-auto text-orange-400 font-bold">{skill.percentage}%</span>
                     </div>
                     <div className="w-full bg-slate-800/50 rounded-full h-3 overflow-hidden backdrop-blur-sm">
                       <div 
@@ -424,8 +422,8 @@ const Portfolio = () => {
                 <div className="absolute inset-8 rounded-full bg-gradient-to-r from-amber-500/10 via-orange-500/15 to-red-500/10 backdrop-blur-sm flex items-center justify-center border border-amber-500/20">
                   <div className="text-center">
                     <Code className="w-16 h-16 mx-auto mb-4 text-amber-400" />
-                    <p className="text-2xl font-bold text-amber-400">2+ ans</p>
-                    <p className="text-amber-100/60">d'expérience</p>
+                    <p className="text-2xl font-bold text-orange-400">2+ ans</p>
+                    <p className="text-gray-400">d'expérience</p>
                   </div>
                 </div>
               </div>
@@ -509,14 +507,14 @@ const Portfolio = () => {
                 </div>
                 
                 <div className="p-6">
-                  <h3 className="text-2xl font-bold mb-3 text-amber-400">{project.title}</h3>
-                  <p className="text-amber-100/70 mb-4 leading-relaxed">{project.description}</p>
+                  <h3 className="text-2xl font-bold mb-3 text-orange-400">{project.title}</h3>
+                  <p className="text-gray-300 mb-4 leading-relaxed">{project.description}</p>
                   
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.tech.map((tech) => (
                       <span 
                         key={tech}
-                        className="px-3 py-1 bg-gradient-to-r from-amber-500/20 to-orange-500/20 text-amber-300 rounded-full text-sm font-medium border border-amber-500/30 backdrop-blur-sm"
+                        className="px-3 py-1 bg-gradient-to-r from-orange-500/20 to-red-500/20 text-orange-300 rounded-full text-sm font-medium border border-orange-500/30 backdrop-blur-sm"
                       >
                         {tech}
                       </span>
@@ -526,7 +524,7 @@ const Portfolio = () => {
                     href={project.link} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="flex items-center text-amber-400 hover:text-amber-300 transition-all duration-300 group-hover:translate-x-2 font-medium"
+                    className="flex items-center text-orange-400 hover:text-orange-300 transition-all duration-300 group-hover:translate-x-2 font-medium"
                   >
                     Voir le projet
                     <ExternalLink className="ml-2 w-4 h-4" />
@@ -544,6 +542,7 @@ const Portfolio = () => {
       {/* Section de transition fluide vers Contact */}
       <div className="h-48 bg-gradient-to-b from-slate-950 via-gray-950/80 to-gray-950 relative overflow-hidden">
         {/* Effet de vagues subtiles */}
+        {animationsEnabled && (
         <div className="absolute inset-0 opacity-20">
           <svg className="w-full h-full" viewBox="0 0 1200 200" fill="none">
             <path
@@ -560,8 +559,11 @@ const Portfolio = () => {
             </defs>
           </svg>
         </div>
+        )}
+
         
         {/* Particules de connexion */}
+        {animationsEnabled && (
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="flex space-x-4">
             {[...Array(5)].map((_, i) => (
@@ -576,11 +578,11 @@ const Portfolio = () => {
             ))}
           </div>
         </div>
-        
+        )}
         {/* Texte de transition subtil */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
           <div className="text-center">
-            <div className="w-24 h-px bg-gradient-to-r from-transparent via-amber-400 to-transparent mb-4" />
+            <div className="w-40 h-px bg-gradient-to-r from-transparent via-amber-400 to-transparent mb-4" />
             <p className="text-amber-100/40 text-sm font-light tracking-wider">Une idée ? Un projet ?</p>
           </div>
         </div>
@@ -599,23 +601,23 @@ const Portfolio = () => {
         
         <div className="max-w-6xl mx-auto relative">
           <div className="text-center mb-16">
-            <span className="text-amber-400 font-semibold text-lg tracking-wider uppercase">Contact</span>
+            <span className="text-orange-400 font-semibold text-lg tracking-wider uppercase">Contact</span>
             <h2 className="text-5xl lg:text-7xl font-bold mt-4 mb-6 bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 bg-clip-text text-transparent leading-tight">
               Collaborons
             </h2>
-            <p className="text-xl text-amber-100/70 max-w-3xl mx-auto leading-relaxed font-light">
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed font-light">
               Prêt à créer quelque chose d'extraordinaire ensemble ? 
               Contactez-moi pour donner vie à vos idées les plus ambitieuses.
             </p>
           </div>
           
           <div className="grid lg:grid-cols-2 gap-16 items-start">
-            {/* Formulaire avec couleurs harmonieuses */}
+            {/* Formulaire */}
             <div className="bg-gradient-to-br from-slate-900/60 to-gray-900/60 backdrop-blur-sm rounded-3xl p-8 border border-amber-500/20">
               <form onSubmit={handleSendEmail} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="group">
-                    <label className="block text-sm font-medium text-amber-100/80 mb-2">Email *</label>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Email *</label>
                     <input 
                       type="email" 
                       placeholder="votre@email.com" 
@@ -672,7 +674,7 @@ const Portfolio = () => {
               )}
             </div>
             
-            {/* Informations de contact avec couleurs harmonieuses */}
+            {/* Informations de contact*/}
             <div className="space-y-8">
               <div>
                 <h3 className="text-2xl font-bold text-amber-100 mb-6">Restons connectés</h3>
@@ -682,7 +684,7 @@ const Portfolio = () => {
                 </p>
               </div>
               
-              {/* Social Links harmonieux */}
+              {/* Social*/}
               <div className="space-y-4">
                 <h4 className="text-lg font-semibold text-amber-400 mb-4">Suivez-moi</h4>
                 <div className="flex gap-4">
