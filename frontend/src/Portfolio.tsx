@@ -460,35 +460,142 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="py-20 px-8 bg-gradient-to-t from-gray-900 to-black">
-        <div className="max-w-4xl mx-auto text-center">
-        <section id="contact" className="py-20 px-8 bg-gradient-to-t from-gray-900 to-black">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-6xl font-bold mb-8 bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">Collaborons</h2>
-            <p className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto leading-relaxed">
-              Prêt à créer quelque chose d'extraordinaire ensemble ? Contactez-moi pour donner vie à vos idées.
+{/* Contact Section redesignée */}
+      <section id="contact" className="py-24 px-8 bg-gradient-to-b from-gray-900 via-black to-gray-900 relative overflow-hidden">
+        {/* Fond avec effets */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-orange-500 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-red-500 rounded-full blur-3xl" />
+        </div>
+        
+        <div className="max-w-6xl mx-auto relative">
+          <div className="text-center mb-16">
+            <span className="text-orange-400 font-semibold text-lg tracking-wider uppercase">Contact</span>
+            <h2 className="text-5xl lg:text-7xl font-bold mt-4 mb-6 bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent leading-tight">
+              Collaborons
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed font-light">
+              Prêt à créer quelque chose d'extraordinaire ensemble ? 
+              Contactez-moi pour donner vie à vos idées les plus ambitieuses.
             </p>
-            <form onSubmit={handleSendEmail} className="flex flex-col gap-6 max-w-xl mx-auto">
-              <input type="email" placeholder="Votre email" value={email} onChange={(e)=>setEmail(e.target.value)} required className="px-4 py-3 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:border-orange-500"/>
-              <input type="text" placeholder="Sujet (optionnel)" value={subject} onChange={(e)=>setSubject(e.target.value)} className="px-4 py-3 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:border-orange-500"/>
-              <textarea placeholder="Votre message" value={message} onChange={(e)=>setMessage(e.target.value)} required className="px-4 py-3 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:border-orange-500 resize-none"/>
-              <button type="submit" className="px-8 py-4 bg-gradient-to-r from-orange-500 to-red-600 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/25">
-                <Mail className="inline-block w-5 h-5 mr-2"/> Envoyer
-              </button>
-            </form>
-            {status && <p className={`mt-4 text-lg font-semibold ${status.includes('succès') ? 'text-green-400' : 'text-red-500'}`}>{status}</p>}
           </div>
-        </section>
+          
+          <div className="grid lg:grid-cols-2 gap-16 items-start">
+            {/* Formulaire */}
+            <div className="bg-gradient-to-br from-gray-900/50 to-black/50 backdrop-blur-sm rounded-3xl p-8 border border-gray-800/50">
+              <form onSubmit={handleSendEmail} className="space-y-6">
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="group">
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Email *</label>
+                    <input 
+                      type="email" 
+                      placeholder="votre@email.com" 
+                      value={email} 
+                      onChange={(e) => setEmail(e.target.value)} 
+                      required 
+                      className="w-full px-4 py-4 rounded-2xl bg-gray-800/50 text-white border border-gray-700/50 focus:outline-none focus:border-orange-500/50 focus:bg-gray-800/70 transition-all duration-300 backdrop-blur-sm"
+                    />
+                  </div>
+                  <div className="group">
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Sujet</label>
+                    <input 
+                      type="text" 
+                      placeholder="Sujet de votre message" 
+                      value={subject} 
+                      onChange={(e) => setSubject(e.target.value)} 
+                      className="w-full px-4 py-4 rounded-2xl bg-gray-800/50 text-white border border-gray-700/50 focus:outline-none focus:border-orange-500/50 focus:bg-gray-800/70 transition-all duration-300 backdrop-blur-sm"
+                    />
+                  </div>
+                </div>
+                <div className="group">
+                  <label className="block text-sm font-medium text-gray-300 mb-2">Message *</label>
+                  <textarea 
+                    placeholder="Décrivez votre projet ou votre idée..." 
+                    value={message} 
+                    onChange={(e) => setMessage(e.target.value)} 
+                    required 
+                    rows={6}
+                    className="w-full px-4 py-4 rounded-2xl bg-gray-800/50 text-white border border-gray-700/50 focus:outline-none focus:border-orange-500/50 focus:bg-gray-800/70 transition-all duration-300 backdrop-blur-sm resize-none"
+                  />
+                </div>
+                <button 
+                  type="submit" 
+                  className="group w-full px-8 py-4 bg-gradient-to-r from-orange-500 to-red-600 rounded-2xl font-semibold text-lg transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/40 relative overflow-hidden"
+                  onMouseEnter={() => setCursorVariant('hover')}
+                  onMouseLeave={() => setCursorVariant('default')}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                  <div className="relative flex items-center justify-center">
+                    <Mail className="mr-3 w-5 h-5" />
+                    Envoyer le message
+                    <div className="ml-3 w-2 h-2 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+                </button>
+              </form>
+              {status && (
+                <div className={`mt-6 p-4 rounded-2xl border ${
+                  status.includes('succès') 
+                    ? 'bg-green-500/10 border-green-500/30 text-green-400' 
+                    : 'bg-red-500/10 border-red-500/30 text-red-400'
+                }`}>
+                  <p className="font-medium">{status}</p>
+                </div>
+              )}
+            </div>
             
-          {/* Social Links */}
-          <div className="flex justify-center gap-6 mt-6">
-            <a href="https://github.com/dadal560" className="p-4 bg-gray-800 rounded-full hover:bg-orange-500 transition-colors duration-300 hover:scale-110">
-              <Github className="w-10 h-10" />
-            </a>
-            <a href="https://linkedin.com" className="p-4 bg-gray-800 rounded-full hover:bg-orange-500 transition-colors duration-300 hover:scale-110">
-              <Linkedin className="w-10 h-10" />
-            </a>
+            {/* Informations de contact */}
+            <div className="space-y-8">
+              <div>
+                <h3 className="text-2xl font-bold text-white mb-6">Restons connectés</h3>
+                <p className="text-gray-400 leading-relaxed font-light mb-8">
+                  N'hésitez pas à me contacter pour discuter de vos projets, 
+                  collaborations ou simplement pour échanger sur les nouvelles technologies.
+                </p>
+              </div>
+              
+              {/* Social Links améliorés */}
+              <div className="space-y-4">
+                <h4 className="text-lg font-semibold text-orange-400 mb-4">Suivez-moi</h4>
+                <div className="flex gap-4">
+                  <a 
+                    href="https://github.com/dadal560" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="group p-4 bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl hover:from-orange-500 hover:to-red-600 transition-all duration-300 hover:scale-110 hover:shadow-xl hover:shadow-orange-500/30 border border-gray-700 hover:border-orange-500/50"
+                    onMouseEnter={() => setCursorVariant('hover')}
+                    onMouseLeave={() => setCursorVariant('default')}
+                  >
+                    <Github className="w-8 h-8 text-gray-300 group-hover:text-white transition-colors" />
+                  </a>
+                  <a 
+                    href="https://linkedin.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="group p-4 bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl hover:from-blue-600 hover:to-blue-700 transition-all duration-300 hover:scale-110 hover:shadow-xl hover:shadow-blue-500/30 border border-gray-700 hover:border-blue-500/50"
+                    onMouseEnter={() => setCursorVariant('hover')}
+                    onMouseLeave={() => setCursorVariant('default')}
+                  >
+                    <Linkedin className="w-8 h-8 text-gray-300 group-hover:text-white transition-colors" />
+                  </a>
+                </div>
+              </div>
+              
+              {/* Stats de contact */}
+              <div className="grid grid-cols-2 gap-4 mt-8">
+                <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50 text-center">
+                  <div className="text-2xl font-bold bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">
+                    &lt; 24h
+                  </div>
+                  <div className="text-sm text-gray-400 mt-1">Temps de réponse</div>
+                </div>
+                <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50 text-center">
+                  <div className="text-2xl font-bold bg-gradient-to-r from-green-400 to-teal-500 bg-clip-text text-transparent">
+                    100%
+                  </div>
+                  <div className="text-sm text-gray-400 mt-1">Disponible</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
