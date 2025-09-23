@@ -274,9 +274,9 @@ const Portfolio = () => {
           </div>
         </div>
 
-        {/* Scroll indicator animé */}
+       {/* Scroll indicator animé */}
         {animationsEnabled &&
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce hidden md:block">
           <div className="flex flex-col items-center">
             <div className="w-6 h-10 border-2 border-orange-400 rounded-full relative mb-2">
               <div className="w-1 h-3 bg-orange-400 rounded-full absolute left-1/2 top-2 transform -translate-x-1/2 animate-pulse" />
