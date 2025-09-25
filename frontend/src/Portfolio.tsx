@@ -137,7 +137,7 @@ const Portfolio = () => {
           }}
         />
 
-        {/* Particules flottantes animées avec couleurs harmonieuses */}
+        {/* Particules flottantes animées */}
         {animationsEnabled && (
         <div className="absolute inset-0 overflow-hidden">
           {[...Array(30)].map((_) => {
@@ -169,7 +169,7 @@ const Portfolio = () => {
         </div>
         )}
 
-        {/* Lignes électriques avec couleurs harmonieuses */}
+        {/* Lignes électriques */}
         {animationsEnabled && (
         <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-15">
           {[...Array(6)].map((_, i) => (
@@ -196,15 +196,15 @@ const Portfolio = () => {
         </svg>
         )}
 
-        {/* Contenu principal avec couleurs harmonieuses */}
+        {/* Contenu principal */}
         <div className={`relative z-10 text-center px-8 transform transition-all duration-2000 ${
           isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'
         }`}>
           <div className="relative">
-            {/* Titre avec gradient harmonieux */}
+            {/* Titre */}
             <h1 className="text-7xl md:text-9xl font-bold mb-6 bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 bg-clip-text text-transparent relative">
               Gwendal Henry
-              {/* Clones pour effet glitch avec couleurs coordonnées */}
+              {/* Clones pour effet glitch */}
               {animationsEnabled && (
                 <>
                   <span className="absolute top-3 left-0 text-7xl md:text-9xl font-bold opacity-22 animate-glitch-1" style={{color: 'rgb(255, 107, 107)'}}>
@@ -220,7 +220,7 @@ const Portfolio = () => {
             Développeur Full-Stack & Cybersecurity
           </h2>
           
-          {/* Ligne décorative avec couleur harmonieuse */}
+          {/* Ligne décorative */}
           {animationsEnabled &&
           <div className="w-32 h-1 bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 mx-auto mb-8 animate-pulse" />
           }
@@ -229,7 +229,7 @@ const Portfolio = () => {
             Tout acte de création est d'abord un acte de destruction.
           </p>
           
-          {/* Stats avec couleurs harmonieuses */}
+          {/* Stats */}
           <div className="flex justify-center gap-8 mb-12 animate-fadeInUp" style={{ animationDelay: '1.5s' }}>
           {[
             { icon: Star, number: '10+', label: 'Projets', color: 'text-yellow-400' },
@@ -249,7 +249,7 @@ const Portfolio = () => {
           </div>
 
           
-          {/* CTA Buttons avec couleurs harmonieuses */}
+          {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-6 justify-center animate-fadeInUp" style={{ animationDelay: '2s' }}>
             <button 
               className="group relative px-8 py-4 bg-gradient-to-r from-amber-500 via-orange-500 to-red-600 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/30 overflow-hidden"
@@ -354,6 +354,7 @@ const Portfolio = () => {
       {/* Section de transition fluide */}
       <div className="h-40 bg-gradient-to-b from-black via-slate-950/50 to-slate-950 relative overflow-hidden">
         {/* Particules de transition */}
+        {animationsEnabled && (
         <div className="absolute inset-0 opacity-30">
           {[...Array(15)].map((_, i) => (
             <div
@@ -368,6 +369,7 @@ const Portfolio = () => {
             />
           ))}
         </div>
+        )}
         
         {/* Ligne de séparation élégante */}
         <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-32 h-px bg-gradient-to-r from-transparent via-amber-400 to-transparent" />
