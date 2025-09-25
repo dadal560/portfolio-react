@@ -231,20 +231,23 @@ const Portfolio = () => {
           
           {/* Stats avec couleurs harmonieuses */}
           <div className="flex justify-center gap-8 mb-12 animate-fadeInUp" style={{ animationDelay: '1.5s' }}>
-            {[
-              { icon: Star, number: '10+', label: 'Projets' },
-              { icon: Zap, number: '3+', label: 'Années' },
-              { icon: Target, number: '100%', label: 'Passion' }
-            ].map((stat) => (
-              <div key={stat.label} className="text-center group">
-                <stat.icon className="w-8 h-8 mx-auto mb-2 text-amber-400 group-hover:scale-110 transition-transform duration-300" />
-                <div className="text-2xl font-bold bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
-                  {stat.number}
-                </div>
-                <div className="text-sm text-amber-100/60">{stat.label}</div>
+          {[
+            { icon: Star, number: '10+', label: 'Projets', color: 'text-yellow-400' },
+            { icon: Zap, number: '3+', label: 'Années', color: 'text-blue-400' },
+            { icon: Target, number: '100%', label: 'Passion', color: 'text-green-400' }
+          ].map((stat) => (
+            <div key={stat.label} className="text-center group">
+              <stat.icon
+                className={`w-8 h-8 mx-auto mb-2 ${stat.color} group-hover:scale-110 transition-transform duration-300`}
+              />
+              <div className="text-2xl font-bold bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
+                {stat.number}
               </div>
-            ))}
+              <div className="text-sm text-amber-100/60">{stat.label}</div>
+            </div>
+          ))}
           </div>
+
           
           {/* CTA Buttons avec couleurs harmonieuses */}
           <div className="flex flex-col sm:flex-row gap-6 justify-center animate-fadeInUp" style={{ animationDelay: '2s' }}>
