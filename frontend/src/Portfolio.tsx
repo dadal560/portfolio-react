@@ -1,7 +1,5 @@
 import { useState, useEffect, useRef, type FormEvent } from 'react';
-import { ChevronDown, Mail, ExternalLink, Code, Cpu, Star, Zap, Target, Server} from 'lucide-react';
-import {FaGithub as Github, FaLinkedin as Linkedin} from 'react-icons/fa';
-
+import { ChevronDown, Mail, ExternalLink, Code, Cpu, Star, Zap, Target, Server, Github, Linkedin} from 'lucide-react';
 
 // Service pour appeler l'API Flask
 const sendEmail = async (email: string, subject: string, message: string) => {
@@ -25,6 +23,7 @@ const Portfolio = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [cursorVariant, setCursorVariant] = useState<'default' | 'hover'>('default');
+  const [flippedCard, setFlippedCard] = useState<number | null>(null);
   const heroRef = useRef(null);
 
   // Animation toggle
@@ -46,7 +45,6 @@ const Portfolio = () => {
     window.addEventListener('scroll', handleScroll);
     window.addEventListener('mousemove', handleMouseMove);
     
-    // Animation d'entrée
     setTimeout(() => setIsLoaded(true), 500);
     
     return () => {
@@ -55,67 +53,99 @@ const Portfolio = () => {
     };
   }, []);
   
-    const handleSendEmail = async (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      const response = await sendEmail(email, subject, message);
-      setStatus(response.message);
-      if (response.status === 'success') {
-        setEmail('');
-        setSubject('');
-        setMessage('');
-      }
-    };
-    
+  const handleSendEmail = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const response = await sendEmail(email, subject, message);
+    setStatus(response.message);
+    if (response.status === 'success') {
+      setEmail('');
+      setSubject('');
+      setMessage('');
+    }
+  };
 
   const projects = [
-  {
-    title: "Application web ScoopDub",
-    description: "Application web de gestion d'événements de musique dub",
-    tech: ["Vue.js", "Symfony", "Postgresql", "API RESTful", "Php", "Node.js"],
-    image: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=600&h=400&fit=crop",
-    link: "https://github.com/dadal560/scoop-dub-symfony-vue"
-  },
-  {
-    title: "Omni-Chat",
-    description: "Projet collaboratif de messagerie multi-plateforme intégrant plusieurs services dans une interface unique.Intégration API.",
-    tech: ["Vue.js", "Node.js", "Symfony", "API", "Lua", "Java"],
-    image: "https://images.unsplash.com/photo-1581091215361-8c1c4dc9fa6d?w=600&h=400&fit=crop",
-    link: "https://github.com/KyozuFR/Omni-Chat"
-  },
-  {
-    title: "Educational keylogger",
-    description: "Projet éducatif open-source illustrant le fonctionnement d'un keylogger basique en Python. Objectif pédagogique et apprentissage des notions de capture d'événements clavier.",
-    tech: ["Python"],
-    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=400&fit=crop",
-    link: "https://github.com/dadal560/educational-keylogger"
-  },
-  {
-    title: "Mailer Flask",
-    description: "Une application web Flask simple permettant d'envoyer des emails via un formulaire de contact sécurisé avec validation et logging.",
-    tech: ["Python", "Flask", "Flask-Mail", "Flask-WTF"],
-    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=400&fit=crop",
-    link: "https://github.com/dadal560/flask-mailer"
-  }
+    {
+      id: 1,
+      title: "Application web ScoopDub",
+      description: "Application web de gestion d'événements de musique dub",
+      tech: ["Vue.js", "Symfony", "Postgresql", "API RESTful", "Php", "Node.js"],
+      image: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=600&h=400&fit=crop",
+      link: "https://github.com/dadal560/scoop-dub-symfony-vue",
+      details: "Application complète avec système d'authentification, gestion des utilisateurs, interface d'administration, et API REST pour la synchronisation des données. Architecture MVC avec Symfony et interface réactive avec Vue.js.",
+      features: ["Authentification JWT", "Interface d'admin", "API RESTful", "Base de données relationnelle"]
+    },
+    {
+      id: 2,
+      title: "Omni-Chat",
+      description: "Projet collaboratif de messagerie multi-plateforme intégrant plusieurs services dans une interface unique.",
+      tech: ["Vue.js", "Node.js", "Symfony", "API", "Lua", "Java"],
+      image: "https://images.unsplash.com/photo-1581091215361-8c1c4dc9fa6d?w=600&h=400&fit=crop",
+      link: "https://github.com/KyozuFR/Omni-Chat",
+      details: "Plateforme de messagerie unifiée permettant la communication via différents protocoles et services. Architecture microservices avec intégration d'APIs externes et système de notifications en temps réel.",
+      features: ["Messagerie temps réel", "Multi-protocoles", "Interface unifiée", "Notifications push"]
+    },
+    {
+      id: 3,
+      title: "Educational keylogger",
+      description: "Projet éducatif open-source illustrant le fonctionnement d'un keylogger basique en Python.",
+      tech: ["Python"],
+      image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=400&fit=crop",
+      link: "https://github.com/dadal560/educational-keylogger",
+      details: "Outil éducatif développé dans un contexte pédagogique pour comprendre les mécanismes de capture d'événements système. Inclut des explications détaillées et des mesures de protection.",
+      features: ["Capture d'événements", "Code documenté", "Objectif pédagogique", "Bonnes pratiques"]
+    },
+    {
+      id: 4,
+      title: "Mailer Flask",
+      description: "Une application web Flask simple permettant d'envoyer des emails via un formulaire de contact sécurisé.",
+      tech: ["Python", "Flask", "Flask-Mail", "Flask-WTF"],
+      image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=400&fit=crop",
+      link: "https://github.com/dadal560/flask-mailer",
+      details: "Service de mail sécurisé avec validation des formulaires, protection CSRF, logging des actions et gestion des erreurs. Interface simple et API claire pour intégration facile.",
+      features: ["Validation sécurisée", "Protection CSRF", "Logging avancé", "API simple"]
+    }
   ];
 
   const skills = [
-    { name: "Frontend", icon: Code, percentage: 85, color: "from-amber-500 to-orange-600" },
-    { name: "Backend", icon: Cpu, percentage: 80, color: "from-orange-600 to-red-600" },
-    { name: "Cybersécurité & Outils", icon: Server, percentage: 60, color: "from-red-600 to-rose-600" }
+    { 
+      name: "Frontend", 
+      icon: Code, 
+      tech: ["Vue.js", "React", "JavaScript", "CSS"], 
+      color: "from-amber-500 to-orange-600",
+      description: "Interfaces modernes et interactives"
+    },
+    { 
+      name: "Backend", 
+      icon: Cpu, 
+      tech: ["Node.js", "Python", "Symfony", "PostgreSQL"], 
+      color: "from-orange-600 to-red-600",
+      description: "APIs robustes et architectures scalables"
+    },
+    { 
+      name: "Cybersécurité", 
+      icon: Server, 
+      tech: ["Kali Linux", "Wireshark", "OWASP", "Cryptographie"], 
+      color: "from-red-600 to-rose-600",
+      description: "Tests de pénétration et sécurisation d'applications"
+    }
   ];
 
-  return (
+  const handleCardFlip = (cardId: number) => {
+    setFlippedCard(flippedCard === cardId ? null : cardId);
+  };
 
+  return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-gray-950 to-black text-white overflow-x-hidden relative" style={{ cursor: cursorVariant === 'hover' ? 'pointer' : 'default' }}>
       <button
-      onClick={toggleAnimations}
-      className="fixed top-4 right-4 z-50 px-4 py-2 bg-slate-900/80 backdrop-blur-sm text-white rounded-xl border border-amber-500/30 hover:bg-amber-500/20 hover:border-amber-400 transition-all duration-300"
-    >
-      {animationsEnabled ? 'Désactiver les animations' : 'Activer les animations'}
-    </button>
-      {/* Hero Section avec parallax */}
+        onClick={toggleAnimations}
+        className="fixed top-4 right-4 z-50 px-4 py-2 bg-slate-900/80 backdrop-blur-sm text-white rounded-xl border border-amber-500/30 hover:bg-amber-500/20 hover:border-amber-400 transition-all duration-300"
+      >
+        {animationsEnabled ? 'Désactiver les animations' : 'Activer les animations'}
+      </button>
+
+      {/* Hero Section */}
       <section ref={heroRef} className="relative h-screen flex items-center justify-center overflow-hidden">
-        {/* Background avec effet parallax et distorsion */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-75"
           style={{
@@ -125,10 +155,8 @@ const Portfolio = () => {
           }}
         />
         
-        {/* Overlay gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-slate-950/20 via-gray-950/20 to-black/90" />
         
-        {/* Effet de vague de chaleur */}
         <div 
           className="absolute inset-0 opacity-20"
           style={{
@@ -137,10 +165,10 @@ const Portfolio = () => {
           }}
         />
 
-        {/* Particules flottantes animées */}
+        {/* Particules flottantes */}
         {animationsEnabled && (
         <div className="absolute inset-0 overflow-hidden">
-          {[...Array(30)].map((_) => {
+          {[...Array(30)].map((_, i) => {
             const size = Math.random() * 8 + 2;
             const duration = Math.random() * 15 + 10;
             const delay = Math.random() * 5;
@@ -150,7 +178,7 @@ const Portfolio = () => {
             
             return (
               <div
-                key={_}
+                key={i}
                 className={`absolute ${color} rounded-full animate-float shadow-lg`}
                 style={{
                   width: `${size}px`,
@@ -161,7 +189,6 @@ const Portfolio = () => {
                   animationDelay: `${delay}s`,
                   animationDuration: `${duration}s`,
                   animation: `float ${duration}s ${delay}s infinite linear`,
-                  boxShadow: `0 0 ${size*3}px ${color.replace('bg-amber-400', 'rgba(245, 158, 11, 0.6)').replace('bg-orange-400', 'rgba(251, 146, 60, 0.6)').replace('bg-red-400', 'rgba(239, 68, 68, 0.6)').replace('bg-rose-400', 'rgba(244, 63, 94, 0.6)')}`
                 }}
               />
             );
@@ -169,42 +196,13 @@ const Portfolio = () => {
         </div>
         )}
 
-        {/* Lignes électriques */}
-        {animationsEnabled && (
-        <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-15">
-          {[...Array(6)].map((_, i) => (
-            <g key={_}>
-              <line
-                x1={`${Math.random() * 100}%`}
-                y1="0%"
-                x2={`${Math.random() * 100}%`}
-                y2="100%"
-                stroke="url(#gradient)"
-                strokeWidth="1"
-                className="animate-pulse"
-                style={{ animationDelay: `${i * 0.5}s` }}
-              />
-            </g>
-          ))}
-          <defs>
-            <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="rgba(245, 158, 11, 0)" />
-              <stop offset="50%" stopColor="rgba(251, 146, 60, 0.8)" />
-              <stop offset="100%" stopColor="rgba(239, 68, 68, 0)" />
-            </linearGradient>
-          </defs>
-        </svg>
-        )}
-
         {/* Contenu principal */}
         <div className={`relative z-10 text-center px-8 transform transition-all duration-2000 ${
           isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'
         }`}>
           <div className="relative">
-            {/* Titre */}
             <h1 className="text-7xl md:text-9xl font-bold mb-6 bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 bg-clip-text text-transparent relative">
               Gwendal Henry
-              {/* Clones pour effet glitch */}
               {animationsEnabled && (
                 <>
                   <span className="absolute top-3 left-0 text-7xl md:text-9xl font-bold opacity-22 animate-glitch-1" style={{color: 'rgb(255, 107, 107)'}}>
@@ -220,7 +218,6 @@ const Portfolio = () => {
             Développeur Full-Stack & Cybersecurity
           </h2>
           
-          {/* Ligne décorative */}
           {animationsEnabled &&
           <div className="w-32 h-1 bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 mx-auto mb-8 animate-pulse" />
           }
@@ -247,7 +244,6 @@ const Portfolio = () => {
             </div>
           ))}
           </div>
-
           
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-6 justify-center animate-fadeInUp" style={{ animationDelay: '2s' }}>
@@ -273,7 +269,7 @@ const Portfolio = () => {
           </div>
         </div>
 
-       {/* Scroll indicator harmonieux */}
+        {/* Scroll indicator */}
         {animationsEnabled &&
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce hidden md:block">
           <div className="flex flex-col items-center">
@@ -303,11 +299,6 @@ const Portfolio = () => {
             transform: translateY(-10vh) translateX(${Math.random() * 200 - 100}px) rotate(360deg);
             opacity: 0;
           }
-        }
-        
-        @keyframes gridMove {
-          0% { transform: translate(0, 0); }
-          100% { transform: translate(50px, 50px); }
         }
         
         @keyframes glitch-1 {
@@ -349,11 +340,49 @@ const Portfolio = () => {
           animation: fadeInUp 1s ease-out forwards;
           opacity: 0;
         }
+
+        /* Scrollbar personnalisée */
+        .custom-scrollbar {
+          scrollbar-width: thin;
+          scrollbar-color: rgba(245, 158, 11, 0.3) transparent;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 4px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(245, 158, 11, 0.3);
+          border-radius: 2px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: rgba(245, 158, 11, 0.5);
+        }
+
+        /* Animation pour les cartes modernes */
+        .animate-float-in {
+          animation: floatIn 0.8s ease-out forwards;
+        }
+        
+        @keyframes floatIn {
+          from {
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
       `}</style>
 
-      {/* Section de transition fluide */}
+      {/* Section de transition */}
       <div className="h-40 bg-gradient-to-b from-black via-slate-950/50 to-slate-950 relative overflow-hidden">
-        {/* Particules de transition */}
         {animationsEnabled && (
         <div className="absolute inset-0 opacity-30">
           {[...Array(15)].map((_, i) => (
@@ -370,14 +399,11 @@ const Portfolio = () => {
           ))}
         </div>
         )}
-        
-        {/* Ligne de séparation élégante */}
         <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-32 h-px bg-gradient-to-r from-transparent via-amber-400 to-transparent" />
       </div>
 
-      {/* About Section avec transition naturelle */}
+      {/* About Section */}
       <section className="py-20 px-8 bg-gradient-to-b from-slate-950 via-gray-900 to-gray-800 relative">
-        {/* Effet de superposition douce */}
         <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-slate-950/80 to-transparent pointer-events-none" />
         
         <div className="max-w-6xl mx-auto relative">
@@ -387,32 +413,39 @@ const Portfolio = () => {
                 À propos
               </h2>
               <p className="text-xl text-gray-300 mb-6 leading-relaxed">
-                  Actuellement en Licence 3 Informatique à l'Université de La Rochelle, 
-                  je conçois des applications web robustes tout en intégrant les meilleures pratiques de cybersécurité.
+                Actuellement en Licence 3 Informatique à l'Université de La Rochelle, 
+                je conçois des applications web robustes tout en intégrant les meilleures pratiques de cybersécurité.
               </p>
               <p className="text-lg text-gray-400 mb-8 leading-relaxed">
-                  Inspiré par l'innovation technologique et sécurité, 
-                  j'allie backend, interfaces modernes et bonnes pratiques 
-                  cybersécurité pour donner vie à des projets créatifs et accessibles.
+                Inspiré par l'innovation technologique et sécurité, 
+                j'allie backend, interfaces modernes et bonnes pratiques 
+                cybersécurité pour donner vie à des projets créatifs et accessibles.
               </p>
               
-              {/* Skills avec couleurs harmonieuses */}
+              {/* Skills améliorés */}
               <div className="space-y-6">
                 {skills.map((skill) => (
                   <div key={skill.name} className="group">
-                    <div className="flex items-center mb-2">
-                      <skill.icon className="w-6 h-6 mr-3 text-amber-400" />
-                      <span className="text-lg font-semibold text-white">{skill.name}</span>
-                      <span className="ml-auto text-orange-400 font-bold">{skill.percentage}%</span>
-                    </div>
-                    <div className="w-full bg-slate-800/50 rounded-full h-3 overflow-hidden backdrop-blur-sm">
-                      <div 
-                        className={`h-full bg-gradient-to-r ${skill.color} rounded-full transition-all duration-1000 ease-out group-hover:scale-105 shadow-lg`}
-                        style={{ 
-                          width: `${skill.percentage}%`,
-                          boxShadow: '0 0 20px rgba(245, 158, 11, 0.3)'
-                        }}
-                      />
+                    <div className="bg-gradient-to-r from-slate-800/60 to-gray-900/40 backdrop-blur-sm rounded-2xl p-6 border border-slate-700/50 hover:border-amber-500/30 transition-all duration-300 hover:scale-[1.02]">
+                      <div className="flex items-start">
+                        <div className={`p-3 rounded-xl bg-gradient-to-r ${skill.color} mr-4 group-hover:scale-110 transition-transform duration-300`}>
+                          <skill.icon className="w-6 h-6 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="text-xl font-bold text-white mb-2">{skill.name}</h3>
+                          <p className="text-gray-400 text-sm mb-3">{skill.description}</p>
+                          <div className="flex flex-wrap gap-2">
+                            {skill.tech.map((tech) => (
+                              <span 
+                                key={tech}
+                                className="px-3 py-1 bg-slate-700/50 text-amber-300 rounded-full text-sm border border-amber-500/20 hover:border-amber-400/40 transition-colors"
+                              >
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -421,7 +454,6 @@ const Portfolio = () => {
             
             <div className="relative">
               <div className="w-80 h-80 mx-auto relative">
-                {/* Cercles décoratifs avec couleurs harmonieuses */}
                 <div className="absolute inset-0 rounded-full border-2 border-amber-500/30 animate-spin backdrop-blur-sm" style={{ animationDuration: '20s' }} />
                 <div className="absolute inset-4 rounded-full border-2 border-orange-500/20 animate-spin" style={{ animationDuration: '15s', animationDirection: 'reverse' }} />
                 <div className="absolute inset-8 rounded-full bg-gradient-to-r from-amber-500/10 via-orange-500/15 to-red-500/10 backdrop-blur-sm flex items-center justify-center border border-amber-500/20">
@@ -436,13 +468,11 @@ const Portfolio = () => {
           </div>
         </div>
         
-        {/* Élément de transition vers la section suivante */}
         <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-gray-800 to-transparent pointer-events-none" />
       </section>
 
-      {/* Section de transition créative vers Projects */}
+      {/* Section de transition vers Projects */}
       <div className="h-56 bg-gradient-to-b from-gray-800 via-slate-850 to-slate-900 relative overflow-hidden">
-        {/* Grille de points en perspective */}
         <div className="absolute inset-0 opacity-15">
           <div className="grid grid-cols-12 gap-8 h-full items-center justify-items-center px-8">
             {[...Array(36)].map((_, i) => (
@@ -459,21 +489,14 @@ const Portfolio = () => {
           </div>
         </div>
         
-        {/* Lignes de code flottantes */}
         <div className="absolute inset-0 flex flex-col justify-center items-center space-y-3">
           <div className="flex space-x-2 opacity-40">
             <div className="w-12 h-0.5 bg-gradient-to-r from-amber-400 to-orange-500 rounded animate-pulse" style={{ animationDelay: '0s' }} />
             <div className="w-8 h-0.5 bg-gradient-to-r from-orange-400 to-red-500 rounded animate-pulse" style={{ animationDelay: '0.3s' }} />
             <div className="w-16 h-0.5 bg-gradient-to-r from-amber-500 to-orange-600 rounded animate-pulse" style={{ animationDelay: '0.6s' }} />
           </div>
-          <div className="flex space-x-2 opacity-30">
-            <div className="w-10 h-0.5 bg-gradient-to-r from-red-400 to-rose-500 rounded animate-pulse" style={{ animationDelay: '0.9s' }} />
-            <div className="w-14 h-0.5 bg-gradient-to-r from-orange-500 to-red-600 rounded animate-pulse" style={{ animationDelay: '1.2s' }} />
-            <div className="w-6 h-0.5 bg-gradient-to-r from-amber-400 to-orange-400 rounded animate-pulse" style={{ animationDelay: '1.5s' }} />
-          </div>
         </div>
         
-        {/* Icône centrale de transition */}
         <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2">
           <div className="relative">
             <div className="w-12 h-12 bg-gradient-to-r from-amber-500 to-orange-600 rounded-full flex items-center justify-center animate-pulse">
@@ -483,70 +506,284 @@ const Portfolio = () => {
           </div>
         </div>
         
-        {/* Message de transition */}
         <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2">
           <p className="text-amber-100/50 text-xs font-light tracking-widest">DÉCOUVREZ MES RÉALISATIONS</p>
         </div>
       </div>
 
-      {/* Projects Section avec transition harmonieuse */}
+      {/* Projects Section avec design ultra moderne */}
       <section id="projects" className="py-20 px-8 bg-gradient-to-b from-slate-900 via-gray-900 to-slate-950 relative">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-6xl font-bold text-center mb-16 bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 bg-clip-text text-transparent">
-            Mes Créations
-          </h2>
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-amber-500/10 to-orange-500/10 rounded-full border border-amber-500/20 mb-6">
+              <div className="w-2 h-2 bg-amber-400 rounded-full animate-pulse" />
+              <span className="text-amber-400 font-medium text-sm tracking-wider uppercase">Portfolio</span>
+            </div>
+            <h2 className="text-6xl font-bold mb-6 bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 bg-clip-text text-transparent">
+              Mes Créations
+            </h2>
+            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+              Une sélection de projets qui reflètent ma passion pour le développement moderne
+            </p>
+          </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project) => (
+          {/* Grid layout moderne */}
+          <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            {projects.map((project, index) => (
               <div 
-                key={project.title}
-                className="group relative bg-gradient-to-br from-slate-800/50 to-gray-900/50 backdrop-blur-sm rounded-2xl overflow-hidden hover:scale-105 transition-all duration-500 hover:shadow-2xl hover:shadow-amber-500/20 border border-slate-700/50 hover:border-amber-500/30"
+                key={project.id} 
+                className="group relative"
+                style={{ animationDelay: `${index * 0.2}s` }}
               >
-                <div className="aspect-video bg-gradient-to-br from-amber-500/10 via-orange-500/10 to-red-500/10 relative overflow-hidden">
-                  <img 
-                    src={project.image} 
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent" />
-                </div>
-                
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold mb-3 text-orange-400">{project.title}</h3>
-                  <p className="text-gray-300 mb-4 leading-relaxed">{project.description}</p>
+                {/* Carte principale avec glassmorphism */}
+                <div className="relative bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-xl rounded-3xl border border-white/10 overflow-hidden hover:border-amber-500/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-amber-500/10">
                   
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tech.map((tech) => (
-                      <span 
-                        key={tech}
-                        className="px-3 py-1 bg-gradient-to-r from-orange-500/20 to-red-500/20 text-orange-300 rounded-full text-sm font-medium border border-orange-500/30 backdrop-blur-sm"
-                      >
-                        {tech}
-                      </span>
-                    ))}
+                  {/* Badge de statut */}
+                  <div className="absolute top-4 left-4 z-20">
+                    <div className="px-3 py-1 bg-emerald-500/20 backdrop-blur-sm rounded-full border border-emerald-500/30 flex items-center gap-2">
+                      <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
+                      <span className="text-emerald-400 text-xs font-medium">Disponible</span>
+                    </div>
                   </div>
-                  <a 
-                    href={project.link} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="flex items-center text-orange-400 hover:text-orange-300 transition-all duration-300 group-hover:translate-x-2 font-medium"
-                  >
-                    Voir le projet
-                    <ExternalLink className="ml-2 w-4 h-4" />
-                  </a>
+
+                  {/* Image avec overlay moderne */}
+                  <div className="relative aspect-video overflow-hidden">
+                    <img 
+                      src={project.image} 
+                      alt={project.title}
+                      className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
+                    />
+                    
+                    {/* Overlay avec gradient moderne */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
+                    
+                    {/* Boutons d'action flottants */}
+                    <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                      <button
+                        onClick={() => handleCardFlip(project.id)}
+                        className="p-3 bg-black/50 backdrop-blur-md rounded-xl border border-white/20 hover:bg-amber-500/20 hover:border-amber-500/40 transition-all duration-300 hover:scale-110"
+                      >
+                        <Code className="w-4 h-4 text-white" />
+                      </button>
+                      <a 
+                        href={project.link} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="p-3 bg-black/50 backdrop-blur-md rounded-xl border border-white/20 hover:bg-blue-500/20 hover:border-blue-500/40 transition-all duration-300 hover:scale-110"
+                      >
+                        <ExternalLink className="w-4 h-4 text-white" />
+                      </a>
+                    </div>
+
+                    {/* Indicateur de scroll en bas de l'image */}
+                    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500">
+                      <div className="flex items-center gap-1 px-3 py-1 bg-black/50 backdrop-blur-md rounded-full border border-white/20">
+                        <ChevronDown className="w-3 h-3 text-white animate-bounce" />
+                        <span className="text-white text-xs">Détails</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Contenu avec design moderne */}
+                  <div className="p-6 relative">
+                    {/* En-tête du projet */}
+                    <div className="mb-4">
+                      <div className="flex items-start justify-between mb-3">
+                        <h3 className="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                          {project.title}
+                        </h3>
+                        <div className="text-xs text-gray-400 bg-gray-800/50 px-2 py-1 rounded-lg">
+                          #{String(index + 1).padStart(2, '0')}
+                        </div>
+                      </div>
+                      
+                      <p className="text-gray-400 leading-relaxed text-sm mb-4 line-clamp-2">
+                        {project.description}
+                      </p>
+                    </div>
+
+                    {/* Technologies avec design moderne */}
+                    <div className="mb-6">
+                      <div className="flex items-center gap-2 mb-3">
+                        <div className="w-1 h-1 bg-amber-400 rounded-full" />
+                        <span className="text-xs text-gray-500 uppercase tracking-wider font-medium">Stack</span>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {project.tech.slice(0, 4).map((tech) => (
+                          <span 
+                            key={tech}
+                            className="px-3 py-1 bg-gradient-to-r from-gray-800/50 to-gray-700/50 text-gray-300 rounded-xl text-sm font-medium border border-gray-700/50 hover:border-amber-500/30 hover:text-amber-300 transition-all duration-300 backdrop-blur-sm"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                        {project.tech.length > 4 && (
+                          <span className="px-3 py-1 bg-gradient-to-r from-amber-500/10 to-orange-500/10 text-amber-400 rounded-xl text-sm font-medium border border-amber-500/30">
+                            +{project.tech.length - 4}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Actions avec design futuriste */}
+                    <div className="flex items-center justify-between pt-4 border-t border-gray-800/50">
+                      <button
+                        onClick={() => handleCardFlip(project.id)}
+                        className="group/btn flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-gray-800/50 to-gray-700/50 hover:from-amber-500/20 hover:to-orange-500/20 rounded-xl border border-gray-700/50 hover:border-amber-500/50 transition-all duration-300 backdrop-blur-sm"
+                      >
+                        <span className="text-gray-300 group-hover/btn:text-amber-300 text-sm font-medium transition-colors">Détails</span>
+                        <div className="w-1 h-1 bg-gray-400 group-hover/btn:bg-amber-400 rounded-full animate-pulse transition-colors" />
+                      </button>
+
+                      {/* Status indicator */}
+                      <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-1">
+                          <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
+                          <span className="text-xs text-gray-500">Active</span>
+                        </div>
+                        <div className="w-px h-4 bg-gray-700" />
+                        <span className="text-xs text-gray-500">2024</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Glow effect on hover */}
+                  <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-amber-500/0 via-orange-500/0 to-red-500/0 group-hover:from-amber-500/5 group-hover:via-orange-500/5 group-hover:to-red-500/5 transition-all duration-500 pointer-events-none" />
                 </div>
+
+                {/* Modal de détails moderne */}
+                {flippedCard === project.id && (
+                  <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+                    <div className="relative w-full max-w-4xl max-h-[90vh] bg-gradient-to-br from-gray-900/95 to-slate-900/95 backdrop-blur-xl rounded-3xl border border-white/10 overflow-hidden">
+                      
+                      {/* Header du modal */}
+                      <div className="relative p-6 border-b border-gray-800/50">
+                        <div className="flex items-start justify-between">
+                          <div>
+                            <h3 className="text-3xl font-bold bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent mb-2">
+                              {project.title}
+                            </h3>
+                            <p className="text-gray-400">Projet full-stack moderne</p>
+                          </div>
+                          <button
+                            onClick={() => handleCardFlip(project.id)}
+                            className="p-3 bg-gray-800/50 hover:bg-red-500/20 rounded-xl border border-gray-700/50 hover:border-red-500/50 transition-all duration-300 hover:rotate-90"
+                          >
+                            <ExternalLink className="w-5 h-5 text-gray-400 hover:text-red-400 transition-colors transform rotate-45" />
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Contenu du modal avec scroll */}
+                      <div className="p-6 max-h-[60vh] overflow-y-auto custom-scrollbar">
+                        <div className="grid md:grid-cols-2 gap-8">
+                          
+                          {/* Description détaillée */}
+                          <div className="space-y-6">
+                            <div>
+                              <h4 className="text-xl font-semibold text-white mb-3 flex items-center gap-2">
+                                <div className="w-1 h-6 bg-gradient-to-b from-amber-400 to-orange-500 rounded-full" />
+                                Aperçu du projet
+                              </h4>
+                              <p className="text-gray-300 leading-relaxed">
+                                {project.details}
+                              </p>
+                            </div>
+
+                            {/* Fonctionnalités avec design moderne */}
+                            <div>
+                              <h4 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
+                                <div className="w-1 h-6 bg-gradient-to-b from-orange-400 to-red-500 rounded-full" />
+                                Fonctionnalités clés
+                              </h4>
+                              <div className="grid gap-3">
+                                {project.features.map((feature, index) => (
+                                  <div key={index} className="flex items-center gap-3 p-3 bg-gradient-to-r from-gray-800/30 to-gray-700/30 rounded-xl border border-gray-700/30">
+                                    <div className="w-2 h-2 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full flex-shrink-0" />
+                                    <span className="text-gray-300 text-sm">{feature}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Technologies et actions */}
+                          <div className="space-y-6">
+                            <div>
+                              <h4 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
+                                <div className="w-1 h-6 bg-gradient-to-b from-red-400 to-rose-500 rounded-full" />
+                                Stack technique
+                              </h4>
+                              <div className="grid grid-cols-2 gap-2">
+                                {project.tech.map((tech) => (
+                                  <div 
+                                    key={tech}
+                                    className="p-3 bg-gradient-to-r from-slate-800/60 to-gray-800/60 text-amber-300 rounded-xl text-sm border border-gray-700/50 hover:border-amber-500/50 transition-all duration-300 text-center backdrop-blur-sm"
+                                  >
+                                    {tech}
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* Actions du modal */}
+                            <div className="space-y-4">
+                              <a 
+                                href={project.link} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 rounded-xl font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-amber-500/30"
+                              >
+                                <Github className="w-5 h-5" />
+                                Voir le code source
+                              </a>
+                              
+                              <div className="grid grid-cols-2 gap-3 text-center text-sm text-gray-400">
+                                <div className="p-3 bg-gray-800/30 rounded-xl border border-gray-700/30">
+                                  <div className="font-semibold text-emerald-400">Open Source</div>
+                                  <div>MIT License</div>
+                                </div>
+                                <div className="p-3 bg-gray-800/30 rounded-xl border border-gray-700/30">
+                                  <div className="font-semibold text-blue-400">Status</div>
+                                  <div>Active</div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>
+
+          {/* Call to action moderne */}
+          <div className="text-center mt-16">
+            <div className="inline-flex items-center gap-4 p-6 bg-gradient-to-r from-gray-900/50 to-gray-800/50 backdrop-blur-xl rounded-2xl border border-gray-700/50">
+              <div className="flex -space-x-2">
+                {[...Array(3)].map((_, i) => (
+                  <div key={i} className={`w-8 h-8 rounded-full border-2 border-gray-700 bg-gradient-to-r ${
+                    i === 0 ? 'from-amber-400 to-orange-500' : 
+                    i === 1 ? 'from-orange-500 to-red-500' : 
+                    'from-red-500 to-rose-500'
+                  }`} />
+                ))}
+              </div>
+              <div className="text-left">
+                <p className="text-white font-medium">Plus de projets à venir</p>
+                <p className="text-gray-400 text-sm">Restez connecté pour les prochaines créations</p>
+              </div>
+            </div>
+          </div>
         </div>
         
-        {/* Élément de transition vers Contact */}
         <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-slate-950 to-transparent pointer-events-none" />
       </section>
 
-      {/* Section de transition fluide vers Contact */}
+      {/* Section de transition vers Contact */}
       <div className="h-48 bg-gradient-to-b from-slate-950 via-gray-950/80 to-gray-950 relative overflow-hidden">
-        {/* Effet de vagues subtiles */}
         {animationsEnabled && (
         <div className="absolute inset-0 opacity-20">
           <svg className="w-full h-full" viewBox="0 0 1200 200" fill="none">
@@ -566,8 +803,6 @@ const Portfolio = () => {
         </div>
         )}
 
-        
-        {/* Particules de connexion */}
         {animationsEnabled && (
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="flex space-x-4">
@@ -584,7 +819,7 @@ const Portfolio = () => {
           </div>
         </div>
         )}
-        {/* Texte de transition subtil */}
+        
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
           <div className="text-center">
             <div className="w-40 h-px bg-gradient-to-r from-transparent via-amber-400 to-transparent mb-4" />
@@ -593,15 +828,13 @@ const Portfolio = () => {
         </div>
       </div>
 
-{/* Contact Section avec transition naturelle */}
+      {/* Contact Section */}
       <section id="contact" className="py-24 px-8 bg-gradient-to-b from-gray-950 via-slate-950 to-black relative overflow-hidden">
-        {/* Fond avec effets harmonieux */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full blur-3xl" />
           <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-orange-500 to-red-500 rounded-full blur-3xl" />
         </div>
         
-        {/* Élément de transition douce depuis la section précédente */}
         <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-gray-950/80 to-transparent pointer-events-none" />
         
         <div className="max-w-6xl mx-auto relative">
@@ -679,7 +912,7 @@ const Portfolio = () => {
               )}
             </div>
             
-            {/* Informations de contact*/}
+            {/* Informations de contact */}
             <div className="space-y-8">
               <div>
                 <h3 className="text-2xl font-bold text-amber-100 mb-6">Restons connectés</h3>
@@ -689,7 +922,7 @@ const Portfolio = () => {
                 </p>
               </div>
               
-              {/* Social*/}
+              {/* Social */}
               <div className="space-y-4">
                 <h4 className="text-lg font-semibold text-amber-400 mb-4">Suivez-moi</h4>
                 <div className="flex gap-4">
@@ -716,7 +949,7 @@ const Portfolio = () => {
                 </div>
               </div>
               
-              {/* Stats de contact harmonieuses */}
+              {/* Stats de contact */}
               <div className="grid grid-cols-2 gap-4 mt-8">
                 <div className="bg-gradient-to-br from-slate-800/60 to-gray-900/60 backdrop-blur-sm rounded-2xl p-6 border border-amber-500/20 text-center">
                   <div className="text-2xl font-bold bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
@@ -736,9 +969,8 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* Footer avec transition naturelle */}
+      {/* Footer */}
       <footer className="py-8 px-8 bg-black border-t border-amber-500/20 relative">
-        {/* Élément de transition douce */}
         <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-gray-950 to-black pointer-events-none" />
         
         <div className="max-w-6xl mx-auto text-center">
