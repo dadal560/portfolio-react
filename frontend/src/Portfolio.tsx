@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, type FormEvent } from 'react';
-import { ChevronDown, Mail, ExternalLink, Code, Cpu, Star, Zap, Target, Server, Github, Linkedin} from 'lucide-react';
+import { ChevronDown, Mail, ExternalLink, Code, Cpu, Star, Zap, Target, Server, Github, Linkedin } from 'lucide-react';
 
 // Service pour appeler l'API Flask
 const sendEmail = async (email: string, subject: string, message: string) => {
@@ -38,7 +38,7 @@ const Portfolio = () => {
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
-    const handleMouseMove = (e : MouseEvent) => {
+    const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
     
@@ -109,30 +109,61 @@ const Portfolio = () => {
 
   const skills = [
     { 
-      name: "Frontend", 
+      category: "Programming Languages",
       icon: Code, 
-      tech: ["Vue.js", "React", "JavaScript", "CSS"], 
+      items: [
+        { name: "JavaScript", level: "Expert", color: "bg-yellow-500" },
+        { name: "Python", level: "Avancé", color: "bg-blue-500" },
+        { name: "PHP", level: "Avancé", color: "bg-purple-500" },
+        { name: "Java", level: "Intermédiaire", color: "bg-red-500" },
+        { name: "Lua", level: "Intermédiaire", color: "bg-indigo-500" }
+      ],
       color: "from-amber-500 to-orange-600",
-      description: "Interfaces modernes et interactives"
+      description: "Langages que je maîtrise pour créer des solutions robustes"
     },
     { 
-      name: "Backend", 
+      category: "Tools & Frameworks",
       icon: Cpu, 
-      tech: ["Node.js", "Python", "Symfony", "PostgreSQL"], 
+      items: [
+        { name: "Vue.js", level: "Expert", color: "bg-green-500" },
+        { name: "React", level: "Avancé", color: "bg-cyan-500" },
+        { name: "Node.js", level: "Avancé", color: "bg-green-600" },
+        { name: "Symfony", level: "Avancé", color: "bg-gray-600" },
+        { name: "PostgreSQL", level: "Avancé", color: "bg-blue-600" }
+      ],
       color: "from-orange-600 to-red-600",
-      description: "APIs robustes et architectures scalables"
+      description: "Frameworks et outils pour développer des applications modernes"
     },
     { 
-      name: "Cybersécurité", 
+      category: "Cybersecurity & DevOps",
       icon: Server, 
-      tech: ["Kali Linux", "Wireshark", "OWASP", "Cryptographie"], 
+      items: [
+        { name: "Kali Linux", level: "Intermédiaire", color: "bg-gray-700" },
+        { name: "Wireshark", level: "Intermédiaire", color: "bg-blue-700" },
+        { name: "OWASP", level: "Intermédiaire", color: "bg-red-600" },
+        { name: "Docker", level: "Débutant", color: "bg-blue-400" },
+        { name: "Git", level: "Avancé", color: "bg-orange-500" }
+      ],
       color: "from-red-600 to-rose-600",
-      description: "Tests de pénétration et sécurisation d'applications"
+      description: "Sécurité, tests de pénétration et outils DevOps"
     }
   ];
 
   const handleCardFlip = (cardId: number) => {
-    setFlippedCard(flippedCard === cardId ? null : cardId);
+    const cardElement = document.querySelector(`[data-project-id="${cardId}"]`);
+    if (cardElement) {
+      if (flippedCard === cardId) {
+        cardElement.classList.remove('flipped');
+        setFlippedCard(null);
+      } else {
+        // Enlever flipped des autres cartes
+        document.querySelectorAll('.project-card.flipped').forEach(card => {
+          card.classList.remove('flipped');
+        });
+        cardElement.classList.add('flipped');
+        setFlippedCard(cardId);
+      }
+    }
   };
 
   return (
@@ -364,19 +395,71 @@ const Portfolio = () => {
           background: rgba(245, 158, 11, 0.5);
         }
 
-        /* Animation pour les cartes modernes */
-        .animate-float-in {
-          animation: floatIn 0.8s ease-out forwards;
+        /* Cartes 3D avec rotation semi-complète */
+        .project-card {
+          perspective: 1000px;
+          height: 500px;
         }
         
-        @keyframes floatIn {
-          from {
-            opacity: 0;
-            transform: translateY(30px) scale(0.95);
-          }
+        .project-card-inner {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          transition: transform 0.8s cubic-bezier(0.23, 1, 0.320, 1);
+          transform-style: preserve-3d;
+        }
+        
+        .project-card:hover .project-card-inner {
+          transform: rotateY(-15deg) rotateX(5deg);
+        }
+        
+        .project-card.flipped .project-card-inner {
+          transform: rotateY(180deg);
+        }
+        
+        .project-face {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          backface-visibility: hidden;
+          border-radius: 1.5rem;
+        }
+        
+        .project-back {
+          transform: rotateY(180deg);
+        }
+        
+        /* Animation d'entrée pour les cartes */
+        .project-card {
+          animation: projectCardEnter 0.8s ease-out forwards;
+          opacity: 0;
+          transform: translateY(50px);
+        }
+        
+        @keyframes projectCardEnter {
           to {
             opacity: 1;
-            transform: translateY(0) scale(1);
+            transform: translateY(0);
+          }
+        }
+        
+        /* Effet de glow au hover */
+        .project-card:hover .project-face {
+          box-shadow: 0 20px 40px rgba(245, 158, 11, 0.1), 
+                      0 0 0 1px rgba(245, 158, 11, 0.1);
+        }
+        
+        /* Animation des barres de niveau */
+        .skill-level-bar {
+          animation: skillBarGrow 1s ease-out forwards;
+        }
+        
+        @keyframes skillBarGrow {
+          from {
+            height: 0;
+          }
+          to {
+            height: 1rem;
           }
         }
       `}</style>
@@ -422,26 +505,58 @@ const Portfolio = () => {
                 cybersécurité pour donner vie à des projets créatifs et accessibles.
               </p>
               
-              {/* Skills améliorés */}
+              {/* Skills avec design moderne et niveaux */}
               <div className="space-y-6">
-                {skills.map((skill) => (
-                  <div key={skill.name} className="group">
+                {skills.map((skillCategory, index) => (
+                  <div key={skillCategory.category} className="group">
                     <div className="bg-gradient-to-r from-slate-800/60 to-gray-900/40 backdrop-blur-sm rounded-2xl p-6 border border-slate-700/50 hover:border-amber-500/30 transition-all duration-300 hover:scale-[1.02]">
                       <div className="flex items-start">
-                        <div className={`p-3 rounded-xl bg-gradient-to-r ${skill.color} mr-4 group-hover:scale-110 transition-transform duration-300`}>
-                          <skill.icon className="w-6 h-6 text-white" />
+                        <div className={`p-3 rounded-xl bg-gradient-to-r ${skillCategory.color} mr-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                          <skillCategory.icon className="w-6 h-6 text-white" />
                         </div>
                         <div className="flex-1">
-                          <h3 className="text-xl font-bold text-white mb-2">{skill.name}</h3>
-                          <p className="text-gray-400 text-sm mb-3">{skill.description}</p>
-                          <div className="flex flex-wrap gap-2">
-                            {skill.tech.map((tech) => (
-                              <span 
-                                key={tech}
-                                className="px-3 py-1 bg-slate-700/50 text-amber-300 rounded-full text-sm border border-amber-500/20 hover:border-amber-400/40 transition-colors"
+                          <h3 className="text-xl font-bold text-white mb-2">{skillCategory.category}</h3>
+                          <p className="text-gray-400 text-sm mb-4">{skillCategory.description}</p>
+                          
+                          {/* Grille des compétences avec niveaux */}
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            {skillCategory.items.map((item, itemIndex) => (
+                              <div 
+                                key={item.name}
+                                className="flex items-center justify-between p-3 bg-slate-700/30 rounded-xl border border-slate-600/30 hover:border-amber-500/40 transition-all duration-300"
+                                style={{ animationDelay: `${index * 0.1 + itemIndex * 0.05}s` }}
                               >
-                                {tech}
-                              </span>
+                                <div className="flex items-center gap-3">
+                                  <div className={`w-3 h-3 ${item.color} rounded-full shadow-lg`} />
+                                  <span className="text-white font-medium text-sm">{item.name}</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                  <span className={`text-xs px-2 py-1 rounded-full font-medium ${
+                                    item.level === 'Expert' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' :
+                                    item.level === 'Avancé' ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' :
+                                    item.level === 'Intermédiaire' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30' :
+                                    'bg-gray-500/20 text-gray-400 border border-gray-500/30'
+                                  }`}>
+                                    {item.level}
+                                  </span>
+                                  {/* Indicateur de niveau visuel */}
+                                  <div className="flex gap-1">
+                                    {[...Array(3)].map((_, i) => (
+                                      <div 
+                                        key={i}
+                                        className={`w-1 h-4 rounded-full skill-level-bar ${
+                                          item.level === 'Expert' ? 'bg-emerald-400' :
+                                          item.level === 'Avancé' && i < 2 ? 'bg-blue-400' :
+                                          item.level === 'Intermédiaire' && i < 1 ? 'bg-amber-400' :
+                                          item.level === 'Débutant' && i < 1 ? 'bg-gray-400' :
+                                          'bg-gray-600'
+                                        } transition-all duration-500`}
+                                        style={{ animationDelay: `${(index * 0.1 + itemIndex * 0.05) + (i * 0.1)}s` }}
+                                      />
+                                    ))}
+                                  </div>
+                                </div>
+                              </div>
                             ))}
                           </div>
                         </div>
@@ -511,7 +626,7 @@ const Portfolio = () => {
         </div>
       </div>
 
-      {/* Projects Section avec design ultra moderne */}
+      {/* Projects Section avec cartes 3D semi-rotation */}
       <section id="projects" className="py-20 px-8 bg-gradient-to-b from-slate-900 via-gray-900 to-slate-950 relative">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
@@ -527,67 +642,59 @@ const Portfolio = () => {
             </p>
           </div>
           
-          {/* Grid layout moderne */}
+          {/* Grid layout avec cartes 3D */}
           <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {projects.map((project, index) => (
               <div 
                 key={project.id} 
-                className="group relative"
+                className="project-card group relative"
+                data-project-id={project.id}
                 style={{ animationDelay: `${index * 0.2}s` }}
               >
-                {/* Carte principale avec glassmorphism */}
-                <div className="relative bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-xl rounded-3xl border border-white/10 overflow-hidden hover:border-amber-500/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-amber-500/10">
+                {/* Conteneur avec perspective 3D */}
+                <div className="project-card-inner">
                   
-                  {/* Badge de statut */}
-                  <div className="absolute top-4 left-4 z-20">
-                    <div className="px-3 py-1 bg-emerald-500/20 backdrop-blur-sm rounded-full border border-emerald-500/30 flex items-center gap-2">
-                      <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-                      <span className="text-emerald-400 text-xs font-medium">Disponible</span>
-                    </div>
-                  </div>
-
-                  {/* Image avec overlay moderne */}
-                  <div className="relative aspect-video overflow-hidden">
-                    <img 
-                      src={project.image} 
-                      alt={project.title}
-                      className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
-                    />
-                    
-                    {/* Overlay avec gradient moderne */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
-                    
-                    {/* Boutons d'action flottants */}
-                    <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
-                      <button
-                        onClick={() => handleCardFlip(project.id)}
-                        className="p-3 bg-black/50 backdrop-blur-md rounded-xl border border-white/20 hover:bg-amber-500/20 hover:border-amber-500/40 transition-all duration-300 hover:scale-110"
-                      >
-                        <Code className="w-4 h-4 text-white" />
-                      </button>
-                      <a 
-                        href={project.link} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="p-3 bg-black/50 backdrop-blur-md rounded-xl border border-white/20 hover:bg-blue-500/20 hover:border-blue-500/40 transition-all duration-300 hover:scale-110"
-                      >
-                        <ExternalLink className="w-4 h-4 text-white" />
-                      </a>
-                    </div>
-
-                    {/* Indicateur de scroll en bas de l'image */}
-                    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                      <div className="flex items-center gap-1 px-3 py-1 bg-black/50 backdrop-blur-md rounded-full border border-white/20">
-                        <ChevronDown className="w-3 h-3 text-white animate-bounce" />
-                        <span className="text-white text-xs">Détails</span>
+                  {/* Face avant */}
+                  <div className="project-face project-front bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-xl border border-white/10 hover:border-amber-500/30 transition-all duration-500">
+                    {/* Badge de statut */}
+                    <div className="absolute top-4 left-4 z-20">
+                      <div className="px-3 py-1 bg-emerald-500/20 backdrop-blur-sm rounded-full border border-emerald-500/30 flex items-center gap-2">
+                        <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
+                        <span className="text-emerald-400 text-xs font-medium">Disponible</span>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Contenu avec design moderne */}
-                  <div className="p-6 relative">
-                    {/* En-tête du projet */}
-                    <div className="mb-4">
+                    {/* Image avec overlay */}
+                    <div className="relative aspect-video overflow-hidden rounded-t-3xl">
+                      <img 
+                        src={project.image} 
+                        alt={project.title}
+                        className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
+                      />
+                      
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
+                      
+                      {/* Boutons d'action */}
+                      <div className="absolute top-4 right-4 flex gap-2">
+                        <button
+                          onClick={() => handleCardFlip(project.id)}
+                          className="p-3 bg-black/50 backdrop-blur-md rounded-xl border border-white/20 hover:bg-amber-500/20 hover:border-amber-500/40 transition-all duration-300 hover:scale-110 hover:rotate-12"
+                        >
+                          <Code className="w-4 h-4 text-white" />
+                        </button>
+                        <a 
+                          href={project.link} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="p-3 bg-black/50 backdrop-blur-md rounded-xl border border-white/20 hover:bg-blue-500/20 hover:border-blue-500/40 transition-all duration-300 hover:scale-110"
+                        >
+                          <ExternalLink className="w-4 h-4 text-white" />
+                        </a>
+                      </div>
+                    </div>
+
+                    {/* Contenu */}
+                    <div className="p-6 bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-xl rounded-b-3xl">
                       <div className="flex items-start justify-between mb-3">
                         <h3 className="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
                           {project.title}
@@ -600,166 +707,129 @@ const Portfolio = () => {
                       <p className="text-gray-400 leading-relaxed text-sm mb-4 line-clamp-2">
                         {project.description}
                       </p>
-                    </div>
 
-                    {/* Technologies avec design moderne */}
-                    <div className="mb-6">
-                      <div className="flex items-center gap-2 mb-3">
-                        <div className="w-1 h-1 bg-amber-400 rounded-full" />
-                        <span className="text-xs text-gray-500 uppercase tracking-wider font-medium">Stack</span>
+                      {/* Technologies */}
+                      <div className="mb-4">
+                        <div className="flex flex-wrap gap-2">
+                          {project.tech.slice(0, 3).map((tech) => (
+                            <span 
+                              key={tech}
+                              className="px-3 py-1 bg-gradient-to-r from-gray-800/50 to-gray-700/50 text-gray-300 rounded-xl text-sm font-medium border border-gray-700/50 hover:border-amber-500/30 hover:text-amber-300 transition-all duration-300"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                          {project.tech.length > 3 && (
+                            <span className="px-3 py-1 bg-gradient-to-r from-amber-500/10 to-orange-500/10 text-amber-400 rounded-xl text-sm font-medium border border-amber-500/30">
+                              +{project.tech.length - 3}
+                            </span>
+                          )}
+                        </div>
                       </div>
-                      <div className="flex flex-wrap gap-2">
-                        {project.tech.slice(0, 4).map((tech) => (
-                          <span 
-                            key={tech}
-                            className="px-3 py-1 bg-gradient-to-r from-gray-800/50 to-gray-700/50 text-gray-300 rounded-xl text-sm font-medium border border-gray-700/50 hover:border-amber-500/30 hover:text-amber-300 transition-all duration-300 backdrop-blur-sm"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                        {project.tech.length > 4 && (
-                          <span className="px-3 py-1 bg-gradient-to-r from-amber-500/10 to-orange-500/10 text-amber-400 rounded-xl text-sm font-medium border border-amber-500/30">
-                            +{project.tech.length - 4}
-                          </span>
-                        )}
-                      </div>
-                    </div>
 
-                    {/* Actions avec design futuriste */}
-                    <div className="flex items-center justify-between pt-4 border-t border-gray-800/50">
-                      <button
-                        onClick={() => handleCardFlip(project.id)}
-                        className="group/btn flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-gray-800/50 to-gray-700/50 hover:from-amber-500/20 hover:to-orange-500/20 rounded-xl border border-gray-700/50 hover:border-amber-500/50 transition-all duration-300 backdrop-blur-sm"
-                      >
-                        <span className="text-gray-300 group-hover/btn:text-amber-300 text-sm font-medium transition-colors">Détails</span>
-                        <div className="w-1 h-1 bg-gray-400 group-hover/btn:bg-amber-400 rounded-full animate-pulse transition-colors" />
-                      </button>
+                      {/* Actions */}
+                      <div className="flex items-center justify-between pt-4 border-t border-gray-800/50">
+                        <button
+                          onClick={() => handleCardFlip(project.id)}
+                          className="group/btn flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-amber-500/20 to-orange-500/20 hover:from-amber-500/30 hover:to-orange-500/30 rounded-xl border border-amber-500/30 hover:border-amber-400/50 transition-all duration-300"
+                        >
+                          <span className="text-amber-300 text-sm font-medium">Retourner</span>
+                          <div className="w-4 h-4 border border-amber-400 rounded border-dashed animate-spin" />
+                        </button>
 
-                      {/* Status indicator */}
-                      <div className="flex items-center gap-3">
                         <div className="flex items-center gap-1">
                           <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-                          <span className="text-xs text-gray-500">Active</span>
+                          <span className="text-xs text-gray-500">2024</span>
                         </div>
-                        <div className="w-px h-4 bg-gray-700" />
-                        <span className="text-xs text-gray-500">2024</span>
                       </div>
                     </div>
                   </div>
 
-                  {/* Glow effect on hover */}
-                  <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-amber-500/0 via-orange-500/0 to-red-500/0 group-hover:from-amber-500/5 group-hover:via-orange-500/5 group-hover:to-red-500/5 transition-all duration-500 pointer-events-none" />
-                </div>
-
-                {/* Modal de détails moderne */}
-                {flippedCard === project.id && (
-                  <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-                    <div className="relative w-full max-w-4xl max-h-[90vh] bg-gradient-to-br from-gray-900/95 to-slate-900/95 backdrop-blur-xl rounded-3xl border border-white/10 overflow-hidden">
+                  {/* Face arrière */}
+                  <div className="project-face project-back">
+                    <div className="h-full bg-gradient-to-br from-gray-900/95 to-slate-900/95 backdrop-blur-xl rounded-3xl border border-amber-500/30 p-6 flex flex-col">
                       
-                      {/* Header du modal */}
-                      <div className="relative p-6 border-b border-gray-800/50">
-                        <div className="flex items-start justify-between">
+                      {/* Header */}
+                      <div className="flex justify-between items-start mb-4">
+                        <h3 className="text-2xl font-bold bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
+                          {project.title}
+                        </h3>
+                        <button
+                          onClick={() => handleCardFlip(project.id)}
+                          className="p-2 bg-amber-500/20 hover:bg-amber-500/30 rounded-xl border border-amber-500/50 hover:border-amber-400/70 transition-all duration-300 hover:rotate-180"
+                        >
+                          <ExternalLink className="w-5 h-5 text-amber-400 transform rotate-45" />
+                        </button>
+                      </div>
+
+                      {/* Contenu scrollable */}
+                      <div className="flex-1 overflow-y-auto custom-scrollbar">
+                        <div className="space-y-4">
+                          {/* Description */}
                           <div>
-                            <h3 className="text-3xl font-bold bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent mb-2">
-                              {project.title}
-                            </h3>
-                            <p className="text-gray-400">Projet full-stack moderne</p>
+                            <h4 className="text-lg font-semibold text-orange-300 mb-2 flex items-center gap-2">
+                              <div className="w-1 h-4 bg-orange-400 rounded-full" />
+                              Description
+                            </h4>
+                            <p className="text-gray-300 text-sm leading-relaxed">{project.details}</p>
                           </div>
-                          <button
-                            onClick={() => handleCardFlip(project.id)}
-                            className="p-3 bg-gray-800/50 hover:bg-red-500/20 rounded-xl border border-gray-700/50 hover:border-red-500/50 transition-all duration-300 hover:rotate-90"
-                          >
-                            <ExternalLink className="w-5 h-5 text-gray-400 hover:text-red-400 transition-colors transform rotate-45" />
-                          </button>
+
+                          {/* Fonctionnalités */}
+                          <div>
+                            <h4 className="text-lg font-semibold text-orange-300 mb-2 flex items-center gap-2">
+                              <div className="w-1 h-4 bg-emerald-400 rounded-full" />
+                              Fonctionnalités
+                            </h4>
+                            <div className="space-y-2">
+                              {project.features.map((feature, i) => (
+                                <div key={i} className="flex items-center gap-2 text-gray-300 text-sm">
+                                  <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full flex-shrink-0" />
+                                  {feature}
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Technologies */}
+                          <div>
+                            <h4 className="text-lg font-semibold text-orange-300 mb-2 flex items-center gap-2">
+                              <div className="w-1 h-4 bg-blue-400 rounded-full" />
+                              Technologies
+                            </h4>
+                            <div className="flex flex-wrap gap-2">
+                              {project.tech.map((tech) => (
+                                <span 
+                                  key={tech}
+                                  className="px-2 py-1 bg-slate-800/60 text-amber-300 rounded-lg text-xs border border-amber-500/30 hover:border-amber-400/50 transition-colors"
+                                >
+                                  {tech}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
                         </div>
                       </div>
 
-                      {/* Contenu du modal avec scroll */}
-                      <div className="p-6 max-h-[60vh] overflow-y-auto custom-scrollbar">
-                        <div className="grid md:grid-cols-2 gap-8">
-                          
-                          {/* Description détaillée */}
-                          <div className="space-y-6">
-                            <div>
-                              <h4 className="text-xl font-semibold text-white mb-3 flex items-center gap-2">
-                                <div className="w-1 h-6 bg-gradient-to-b from-amber-400 to-orange-500 rounded-full" />
-                                Aperçu du projet
-                              </h4>
-                              <p className="text-gray-300 leading-relaxed">
-                                {project.details}
-                              </p>
-                            </div>
-
-                            {/* Fonctionnalités avec design moderne */}
-                            <div>
-                              <h4 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
-                                <div className="w-1 h-6 bg-gradient-to-b from-orange-400 to-red-500 rounded-full" />
-                                Fonctionnalités clés
-                              </h4>
-                              <div className="grid gap-3">
-                                {project.features.map((feature, index) => (
-                                  <div key={index} className="flex items-center gap-3 p-3 bg-gradient-to-r from-gray-800/30 to-gray-700/30 rounded-xl border border-gray-700/30">
-                                    <div className="w-2 h-2 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full flex-shrink-0" />
-                                    <span className="text-gray-300 text-sm">{feature}</span>
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Technologies et actions */}
-                          <div className="space-y-6">
-                            <div>
-                              <h4 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
-                                <div className="w-1 h-6 bg-gradient-to-b from-red-400 to-rose-500 rounded-full" />
-                                Stack technique
-                              </h4>
-                              <div className="grid grid-cols-2 gap-2">
-                                {project.tech.map((tech) => (
-                                  <div 
-                                    key={tech}
-                                    className="p-3 bg-gradient-to-r from-slate-800/60 to-gray-800/60 text-amber-300 rounded-xl text-sm border border-gray-700/50 hover:border-amber-500/50 transition-all duration-300 text-center backdrop-blur-sm"
-                                  >
-                                    {tech}
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-
-                            {/* Actions du modal */}
-                            <div className="space-y-4">
-                              <a 
-                                href={project.link} 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 rounded-xl font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-amber-500/30"
-                              >
-                                <Github className="w-5 h-5" />
-                                Voir le code source
-                              </a>
-                              
-                              <div className="grid grid-cols-2 gap-3 text-center text-sm text-gray-400">
-                                <div className="p-3 bg-gray-800/30 rounded-xl border border-gray-700/30">
-                                  <div className="font-semibold text-emerald-400">Open Source</div>
-                                  <div>MIT License</div>
-                                </div>
-                                <div className="p-3 bg-gray-800/30 rounded-xl border border-gray-700/30">
-                                  <div className="font-semibold text-blue-400">Status</div>
-                                  <div>Active</div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                      {/* Footer avec action */}
+                      <div className="mt-4 pt-4 border-t border-gray-800/50">
+                        <a 
+                          href={project.link} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 rounded-xl font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-amber-500/30"
+                        >
+                          <Github className="w-5 h-5" />
+                          Voir le code source
+                        </a>
                       </div>
                     </div>
                   </div>
-                )}
+                </div>
               </div>
             ))}
           </div>
 
-          {/* Call to action moderne */}
+          {/* Call to action */}
           <div className="text-center mt-16">
             <div className="inline-flex items-center gap-4 p-6 bg-gradient-to-r from-gray-900/50 to-gray-800/50 backdrop-blur-xl rounded-2xl border border-gray-700/50">
               <div className="flex -space-x-2">
