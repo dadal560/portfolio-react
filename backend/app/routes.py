@@ -1,33 +1,31 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, request, jsonify
 from flask_mail import Message
-from .forms import ContactForm # Import relatif : "forms" est dans le même dossier (package app), 
 from . import mail
-import logging
 import os
+import logging
 
 logger = logging.getLogger(__name__)
 main = Blueprint("main", __name__)
 
-@main.route("/", methods=["GET", "POST"])
-def index():
-    form = ContactForm()
-    if form.validate_on_submit():
-        try:
-            msg = Message(
-                subject="[Contact Form]",
-                recipients=os.getenv("MAIL_RECIPIENTS", os.getenv("MAIL_USERNAME")).split(","),
-                body=(
-                    f"De: {form.email.data}\n"
-                    f"IP: {request.remote_addr}\n\n"
-                    f"{form.message.data}"
-                )
-            )
-            mail.send(msg)
-            flash("Message envoyé ✅", "success")
-            logger.info("Email envoyé depuis %s (IP: %s)", form.email.data, request.remote_addr)
-            return redirect(url_for("main.index"))
-        except Exception:
-            logger.exception("Erreur lors de l'envoi email")
-            flash("Erreur lors de l'envoi ❌", "danger")
-            return redirect(url_for("main.index"))
-    return render_template("index.html", form=form)
+@main.route("/send-email", methods=["POST"])
+def send_email():
+    data = request.get_json()
+    email = data.get("email")
+    subject = data.get("subject")
+    message_body = data.get("message")
+
+    if not email or not message_body:
+        return jsonify({"status": "error", "message": "Email et message obligatoires"}), 400
+
+    try:
+        msg = Message(
+            subject=f"[Contact Form] {subject}",
+            recipients=os.getenv("MAIL_RECIPIENTS", os.getenv("MAIL_USERNAME")).split(","),
+            body=f"De: {email}\nIP: {request.remote_addr}\n\nSujet: {subject}\n\n{message_body}"
+        )
+        mail.send(msg)
+        logger.info("Email envoyé depuis %s (IP: %s)", email, request.remote_addr)
+        return jsonify({"status": "success", "message": "Message envoyé ✅"})
+    except Exception as e:
+        logger.exception("Erreur lors de l'envoi email")
+        return jsonify({"status": "error", "message": "Erreur lors de l'envoi ❌"}), 500

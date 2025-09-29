@@ -2,11 +2,13 @@ import { useState, useEffect, useRef, type FormEvent } from 'react';
 import { ChevronDown, Mail, ExternalLink, Code, Cpu, Star, Zap, Target, Server, Github, Linkedin } from 'lucide-react';
 
 // Service pour appeler l'API Flask
+
 const sendEmail = async (email: string, subject: string, message: string) => {
   try {
     const res = await fetch('http://127.0.0.1:5000/send-email', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify({ email, subject, message }),
     });
     return await res.json();

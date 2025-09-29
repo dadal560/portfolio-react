@@ -1,11 +1,10 @@
 import logging
 from flask import Flask
 from flask_mail import Mail
-from flask_wtf.csrf import CSRFProtect
-from .config import Config # Import relatif : "config" est dans le même dossier (package app)
+from flask_cors import CORS
+from .config import Config
 
 mail = Mail()
-csrf = CSRFProtect() # Protection contre les attaques CSRF
 
 def create_app():
     app = Flask(__name__)
@@ -13,7 +12,9 @@ def create_app():
 
     # Extensions
     mail.init_app(app)
-    csrf.init_app(app)
+    
+    # Autoriser le front à communiquer avec le back
+    CORS(app, origins=["http://localhost:5173"] ,supports_credentials=True)
 
     # Logging
     logging.basicConfig(
