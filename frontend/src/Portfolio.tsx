@@ -70,7 +70,7 @@ const Portfolio = () => {
     {
       id: 1,
       title: "Application web ScoopDub",
-      description: "Application web de gestion d'événements de musique dub",
+      description: "Plateforme web pour découvrir rechercher et publier des événements de musique dub,",
       tech: ["Vue.js", "Symfony", "Postgresql", "API RESTful", "Php", "Node.js"],
       image: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=600&h=400&fit=crop",
       link: "https://github.com/dadal560/scoop-dub-symfony-vue",
@@ -248,7 +248,7 @@ const Portfolio = () => {
           </div>
               
           <h2 className="text-2xl md:text-4xl font-light mb-8 text-amber-100/80 animate-fadeInUp" style={{ animationDelay: '0.5s' }}>
-            Développeur Full-Stack & Cybersecurity
+          Etudiant en informatique
           </h2>
           
           {animationsEnabled &&
@@ -640,12 +640,12 @@ const Portfolio = () => {
               Mes Créations
             </h2>
             <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-              Une sélection de projets qui reflètent ma passion pour le développement moderne
+              Une sélection de projets qui reflètent ma passion pour le développement
             </p>
           </div>
           
           {/* Grid layout avec cartes 3D */}
-          <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
             {projects.map((project, index) => (
               <div 
                 key={project.id} 
@@ -832,7 +832,7 @@ const Portfolio = () => {
           </div>
 
           {/* Call to action */}
-          <div className="text-center mt-16">
+          <div className="text-center mt-38">
             <div className="inline-flex items-center gap-4 p-6 bg-gradient-to-r from-gray-900/50 to-gray-800/50 backdrop-blur-xl rounded-2xl border border-gray-700/50">
               <div className="flex -space-x-2">
                 {[...Array(3)].map((_, i) => (
