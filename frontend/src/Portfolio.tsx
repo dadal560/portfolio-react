@@ -75,7 +75,7 @@ const Portfolio = () => {
       image: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=600&h=400&fit=crop",
       link: "https://github.com/dadal560/scoop-dub-symfony-vue",
       details: "Application complète avec système d'authentification, gestion des utilisateurs, interface d'administration, et API REST pour la synchronisation des données. Architecture MVC avec Symfony et interface réactive avec Vue.js.",
-      features: ["Authentification JWT", "Interface d'admin", "API RESTful", "Base de données relationnelle"]
+      features: ["API RESTful", "Base de données relationnelle"]
     },
     {
       id: 2,
@@ -92,20 +92,20 @@ const Portfolio = () => {
       title: "Educational keylogger",
       description: "Projet éducatif open-source illustrant le fonctionnement d'un keylogger basique en Python.",
       tech: ["Python"],
-      image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=600&h=400&fit=crop",
       link: "https://github.com/dadal560/educational-keylogger",
       details: "Outil éducatif développé dans un contexte pédagogique pour comprendre les mécanismes de capture d'événements système. Inclut des explications détaillées et des mesures de protection.",
-      features: ["Capture d'événements", "Code documenté", "Objectif pédagogique", "Bonnes pratiques"]
+      features: [ "Code documenté", "Objectif pédagogique", "Bonnes pratiques"]
     },
     {
       id: 4,
       title: "Mailer Flask",
       description: "Une application web Flask simple permettant d'envoyer des emails via un formulaire de contact sécurisé.",
       tech: ["Python", "Flask", "Flask-Mail", "Flask-WTF"],
-      image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=400&fit=crop",
+      image: "https://images.unsplash.com/photo-1585397072889-29b7be9b8a0c?w=600&h=400&fit=crop",
       link: "https://github.com/dadal560/flask-mailer",
       details: "Service de mail sécurisé avec validation des formulaires, protection CSRF, logging des actions et gestion des erreurs. Interface simple et API claire pour intégration facile.",
-      features: ["Validation sécurisée", "Protection CSRF", "Logging avancé", "API simple"]
+      features: ["Validation sécurisée", "Protection CSRF", "Logging avancé"]
     }
   ];
 
@@ -114,11 +114,11 @@ const Portfolio = () => {
       category: "Programming Languages",
       icon: Code, 
       items: [
-        { name: "JavaScript", level: "Expert", color: "bg-yellow-500" },
+        { name: "JavaScript", level: "Intermédiaire", color: "bg-yellow-500" },
         { name: "Python", level: "Avancé", color: "bg-blue-500" },
         { name: "PHP", level: "Avancé", color: "bg-purple-500" },
-        { name: "Java", level: "Intermédiaire", color: "bg-red-500" },
-        { name: "Lua", level: "Intermédiaire", color: "bg-indigo-500" }
+        { name: "Java", level: "Avancé", color: "bg-red-500" },
+        { name: "Lua", level: "Débutant", color: "bg-indigo-500" }
       ],
       color: "from-amber-500 to-orange-600",
       description: "Langages que je maîtrise pour créer des solutions robustes"
@@ -127,7 +127,7 @@ const Portfolio = () => {
       category: "Tools & Frameworks",
       icon: Cpu, 
       items: [
-        { name: "Vue.js", level: "Expert", color: "bg-green-500" },
+        { name: "Vue.js", level: "Avancé", color: "bg-green-500" },
         { name: "React", level: "Avancé", color: "bg-cyan-500" },
         { name: "Node.js", level: "Avancé", color: "bg-green-600" },
         { name: "Symfony", level: "Avancé", color: "bg-gray-600" },
@@ -142,7 +142,6 @@ const Portfolio = () => {
       items: [
         { name: "Kali Linux", level: "Intermédiaire", color: "bg-gray-700" },
         { name: "Wireshark", level: "Intermédiaire", color: "bg-blue-700" },
-        { name: "OWASP", level: "Intermédiaire", color: "bg-red-600" },
         { name: "Docker", level: "Débutant", color: "bg-blue-400" },
         { name: "Git", level: "Avancé", color: "bg-orange-500" }
       ],
