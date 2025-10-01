@@ -303,7 +303,7 @@ const Portfolio = () => {
 
         {/* Scroll indicator */}
         {animationsEnabled &&
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce hidden md:block">
+        <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 animate-bounce hidden md:block">
           <div className="flex flex-col items-center">
             <div className="w-6 h-10 border-2 border-amber-400/70 rounded-full relative mb-2 backdrop-blur-sm">
               <div className="w-1 h-3 bg-amber-400 rounded-full absolute left-1/2 top-2 transform -translate-x-1/2 animate-pulse" />
@@ -520,7 +520,7 @@ const Portfolio = () => {
                           <p className="text-gray-400 text-sm mb-4">{skillCategory.description}</p>
                           
                           {/* Grille des compétences avec niveaux */}
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          <div className="grid grid-cols-1 sm:grid-cols-1 gap-3">
                             {skillCategory.items.map((item, itemIndex) => (
                               <div 
                                 key={item.name}
@@ -532,7 +532,7 @@ const Portfolio = () => {
                                   <span className="text-white font-medium text-sm">{item.name}</span>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                  <span className={`text-xs px-2 py-1 rounded-full font-medium ${
+                                  <span className={`text-xs px-1 py-1 rounded-full font-medium ${
                                     item.level === 'Expert' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' :
                                     item.level === 'Avancé' ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' :
                                     item.level === 'Intermédiaire' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30' :
