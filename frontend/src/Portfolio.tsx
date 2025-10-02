@@ -72,7 +72,7 @@ const Portfolio = () => {
       title: "Application web ScoopDub",
       description: "Plateforme web pour découvrir rechercher et publier des événements de musique dub,",
       tech: ["Vue.js", "Symfony", "Postgresql", "API RESTful", "Php", "Node.js"],
-      image: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=600&h=400&fit=crop",
+      image: "",
       link: "https://github.com/dadal560/scoop-dub-symfony-vue",
       details: "Application complète avec système d'authentification, gestion des utilisateurs, interface d'administration, et API REST pour la synchronisation des données. Architecture MVC avec Symfony et interface réactive avec Vue.js.",
       features: ["API RESTful", "Base de données relationnelle"]
@@ -92,7 +92,7 @@ const Portfolio = () => {
       title: "Educational keylogger",
       description: "Projet éducatif open-source illustrant le fonctionnement d'un keylogger basique en Python.",
       tech: ["Python"],
-      image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=600&h=400&fit=crop",
+      image: "",
       link: "https://github.com/dadal560/educational-keylogger",
       details: "Outil éducatif développé dans un contexte pédagogique pour comprendre les mécanismes de capture d'événements système. Inclut des explications détaillées et des mesures de protection.",
       features: [ "Code documenté", "Objectif pédagogique", "Bonnes pratiques"]
