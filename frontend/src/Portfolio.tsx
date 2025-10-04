@@ -123,7 +123,8 @@ const Portfolio = () => {
         { name: "Python", level: "Avancé", color: "bg-blue-500" },
         { name: "PHP", level: "Avancé", color: "bg-purple-500" },
         { name: "Java", level: "Avancé", color: "bg-red-500" },
-        { name: "Lua", level: "Débutant", color: "bg-indigo-500" }
+        { name: "Lua", level: "Débutant", color: "bg-indigo-500" },
+        { name: "C", level: "Intermédiaire", color: "bg-green-500" }
       ],
       color: "from-amber-500 to-orange-600",
       description: "Langages que je maîtrise pour créer des solutions robustes"
@@ -133,7 +134,7 @@ const Portfolio = () => {
       icon: Cpu, 
       items: [
         { name: "Vue.js", level: "Avancé", color: "bg-green-500" },
-        { name: "React", level: "Avancé", color: "bg-cyan-500" },
+        { name: "React", level: "Intermédiaire", color: "bg-cyan-500" },
         { name: "Node.js", level: "Avancé", color: "bg-green-600" },
         { name: "Symfony", level: "Avancé", color: "bg-gray-600" },
         { name: "PostgreSQL", level: "Avancé", color: "bg-blue-600" }
@@ -145,7 +146,6 @@ const Portfolio = () => {
       category: "Cybersecurity & DevOps",
       icon: Server, 
       items: [
-        { name: "Kali Linux", level: "Intermédiaire", color: "bg-gray-700" },
         { name: "Wireshark", level: "Intermédiaire", color: "bg-blue-700" },
         { name: "Docker", level: "Débutant", color: "bg-blue-400" },
         { name: "Git", level: "Avancé", color: "bg-orange-500" }
