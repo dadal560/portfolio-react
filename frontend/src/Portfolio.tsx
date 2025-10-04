@@ -502,8 +502,8 @@ const Portfolio = () => {
                 À propos
               </h2>
               <p className="text-xl text-gray-300 mb-6 leading-relaxed">
-                Actuellement en Licence 3 Informatique à l'Université de La Rochelle, 
-                je conçois des applications web robustes tout en intégrant les meilleures pratiques de cybersécurité.
+                Actuellement en L3 Informatique à l'Université de La Rochelle, 
+                je développe des applications web robustes tout en intégrant les meilleures pratiques de cybersécurité.
               </p>
               <p className="text-lg text-gray-400 mb-8 leading-relaxed">
                 Inspiré par l'innovation technologique et sécurité, 
