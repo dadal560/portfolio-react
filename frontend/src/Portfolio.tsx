@@ -75,11 +75,11 @@ const Portfolio = () => {
       id: 1,
       title: "Application web ScoopDub",
       description: "Plateforme web pour découvrir rechercher et publier des événements de musique dub,",
-      tech: ["Vue.js", "Symfony", "Postgresql", "API RESTful", "Php", "Node.js"],
+      tech: ["Vue.js", "Symfony", "Postgresql", "API", "Php", "Node.js"],
       image: "",
       link: "https://github.com/dadal560/scoop-dub-symfony-vue",
-      details: "Application complète avec système d'authentification, gestion des utilisateurs, interface d'administration, et API REST pour la synchronisation des données. Architecture MVC avec Symfony et interface réactive avec Vue.js.",
-      features: ["API RESTful", "Base de données relationnelle"]
+      details: "Application complète avec système de création d'événement, artiste et API REST pour la synchronisation des données. Architecture MVC avec Symfony et interface réactive avec Vue.js.",
+      features: ["API", "Base de données relationnelle"]
     },
     {
       id: 2,
