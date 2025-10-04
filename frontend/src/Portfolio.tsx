@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef, type FormEvent } from 'react';
 import { ChevronDown, Mail, ExternalLink, Code, Cpu, Star, Zap, Target, Server, Github, Linkedin } from 'lucide-react';
+import keyloggerImg from "./assets/keylogger.png";
+
 
 // Service pour appeler l'API Flask
 
@@ -92,7 +94,7 @@ const Portfolio = () => {
       title: "Educational keylogger",
       description: "Projet éducatif open-source illustrant le fonctionnement d'un keylogger basique en Python.",
       tech: ["Python"],
-      image: "",
+      image: keyloggerImg,
       link: "",
       details: "Outil éducatif développé dans un contexte pédagogique pour comprendre les mécanismes de capture d'événements système. Inclut des explications détaillées et des mesures de protection.",
       features: [ "Code documenté", "Objectif pédagogique", "Bonnes pratiques"]
