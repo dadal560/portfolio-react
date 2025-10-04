@@ -930,7 +930,7 @@ const Portfolio = () => {
               <form onSubmit={handleSendEmail} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="group">
-                    <label className="block text-sm font-medium text-gray-300 mb-2">Email *</label>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">Email *</label>
                     <input 
                       type="email" 
                       placeholder="votre@email.com" 
@@ -941,7 +941,7 @@ const Portfolio = () => {
                     />
                   </div>
                   <div className="group">
-                    <label className="block text-sm font-medium text-amber-100/80 mb-2">Sujet</label>
+                    <label htmlFor="sujet" className="block text-sm font-medium text-amber-100/80 mb-2">Sujet</label>
                     <input 
                       type="text" 
                       placeholder="Sujet de votre message" 
@@ -952,7 +952,7 @@ const Portfolio = () => {
                   </div>
                 </div>
                 <div className="group">
-                  <label className="block text-sm font-medium text-amber-100/80 mb-2">Message *</label>
+                  <label htmlFor="message" className="block text-sm font-medium text-amber-100/80 mb-2">Message *</label>
                   <textarea 
                     placeholder="Décrivez votre projet ou votre idée..." 
                     value={message} 
