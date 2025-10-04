@@ -649,7 +649,7 @@ const Portfolio = () => {
           </div>
           
           {/* Grid layout avec cartes 3D */}
-          <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-17 max-w-6xl mx-auto">
             {projects.map((project, index) => (
               <div 
                 key={project.id} 
