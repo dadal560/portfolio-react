@@ -1013,7 +1013,7 @@ const Portfolio = () => {
                     <Github className="w-8 h-8 text-amber-100/70 group-hover:text-amber-300 transition-colors" />
                   </a>
                   <a 
-                    href="https://linkedin.com" 
+                    href="https://www.linkedin.com/in/gwendal-henry-592986388/" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="group p-4 bg-gradient-to-br from-slate-800/60 to-gray-900/60 rounded-2xl hover:from-blue-600/20 hover:to-blue-700/20 transition-all duration-300 hover:scale-110 hover:shadow-xl hover:shadow-blue-500/30 border border-slate-700/50 hover:border-blue-500/50 backdrop-blur-sm"
