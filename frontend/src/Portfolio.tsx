@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, type FormEvent } from 'react';
 import { ChevronDown, Mail, ExternalLink, Code, Cpu, Star, Zap, Target, Server} from 'lucide-react';
 import keyloggerImg from "./assets/keylogger.png";
 import {FaGithub as Github, FaLinkedin as Linkedin} from 'react-icons/fa';
+import FooterPro from './FooterPro';
 
 
 
@@ -1045,15 +1046,7 @@ const Portfolio = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 px-8 bg-black border-t border-amber-500/20 relative">
-        <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-gray-950 to-black pointer-events-none" />
-        
-        <div className="max-w-6xl mx-auto text-center">
-          <p className="text-amber-100/50">
-            © 2025 Mon Portfolio. Créé avec passion et inspiré par l'art intemporel.
-          </p>
-        </div>
-      </footer>
+      <FooterPro />
     </div>
   );
 };
