@@ -95,7 +95,7 @@ const Portfolio = () => {
       description: "Projet éducatif open-source illustrant le fonctionnement d'un keylogger basique en Python.",
       tech: ["Python"],
       image: keyloggerImg,
-      link: "",
+      link: "https://github.com/dadal560/educational-keylogger",
       details: "Outil éducatif développé dans un contexte pédagogique pour comprendre les mécanismes de capture d'événements système. Inclut des explications détaillées et des mesures de protection.",
       features: [ "Code documenté", "Objectif pédagogique", "Bonnes pratiques"]
     },
