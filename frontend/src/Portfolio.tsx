@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef, type FormEvent } from 'react';
-import { ChevronDown, Mail, ExternalLink, Code, Cpu, Star, Zap, Target, Server, Github, Linkedin } from 'lucide-react';
+import { ChevronDown, Mail, ExternalLink, Code, Cpu, Star, Zap, Target, Server} from 'lucide-react';
 import keyloggerImg from "./assets/keylogger.png";
+import {FaGithub as Github, FaLinkedin as Linkedin} from 'react-icons/fa';
+
 
 
 // Service pour appeler l'API Flask
