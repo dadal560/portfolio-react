@@ -5,7 +5,9 @@ load_dotenv()
 
 class Config:
     SECRET_KEY = os.getenv("FLASK_SECRET_KEY")
-
+    if not SECRET_KEY:
+        raise ValueError("FLASK_SECRET_KEY must be set in production")
+    
     MAIL_SERVER = "smtp.gmail.com"
     MAIL_PORT = 587
     MAIL_USE_TLS = True
