@@ -7,6 +7,8 @@ import logging
 logger = logging.getLogger(__name__)
 main = Blueprint("main", __name__)
 
+
+
 @main.route("/send-email", methods=["POST"])
 def send_email():
     data = request.get_json()
