@@ -78,7 +78,7 @@ const Portfolio = () => {
     {
       id: 1,
       title: "Application web ScoopDub",
-      description: "Plateforme web pour découvrir rechercher et publier des événements de musique dub,",
+      description: "Plateforme web pour découvrir, rechercher et publier des événements de musique dub,",
       tech: ["Vue.js", "Symfony", "Postgresql", "API", "Php", "Node.js"],
       image: ScoopDubImg,
       link: "https://github.com/dadal560/scoop-dub-symfony-vue",
@@ -88,7 +88,7 @@ const Portfolio = () => {
     {
       id: 2,
       title: "Omni-Chat",
-      description: "Projet collaboratif de messagerie multi-plateforme intégrant plusieurs services dans une interface unique.",
+      description: "Projet collaboratif de messagerie multi-plateforme intégrant plusieurs services.",
       tech: ["Vue.js", "Node.js", "Symfony", "API", "Lua", "Java"],
       image: chat,
       link: "https://github.com/KyozuFR/Omni-Chat",
