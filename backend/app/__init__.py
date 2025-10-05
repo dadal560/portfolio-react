@@ -101,6 +101,6 @@ def create_app():
     from .routes import main
     app.register_blueprint(main, url_prefix='/api')
 
-    app.logger.info("Application started successfully")
+    app.logger.info("Application start")
     
     return app
