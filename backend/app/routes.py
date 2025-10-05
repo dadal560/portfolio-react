@@ -148,7 +148,7 @@ Cet email a été envoyé depuis le formulaire de contact du portfolio.
             "message": "Message envoyé avec succès ✅"
         }), 200
         
-    except Exception as e:
+    except Exception:
         # Log de l'erreur (avec stack trace)
         logger.exception(f"Failed to send email from {email}")
         
