@@ -1,0 +1,100 @@
+  <svg viewBox="0 0 600 400" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="chatGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#059669" />
+        <stop offset="50%" stopColor="#0d9488" />
+        <stop offset="100%" stopColor="#06b6d4" />
+      </linearGradient>
+      <filter id="glowChat">
+        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+        <feMerge>
+          <feMergeNode in="coloredBlur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+    </defs>
+    
+    {/* Background */}
+    <rect width="600" height="400" fill="url(#chatGradient)"/>
+    
+    {/* Decorative circles */}
+    <g opacity="0.15">
+      <circle cx="120" cy="100" r="50" fill="white"/>
+      <circle cx="480" cy="300" r="70" fill="white"/>
+      <circle cx="500" cy="80" r="35" fill="white"/>
+      <circle cx="100" cy="320" r="40" fill="white"/>
+      <circle cx="550" cy="200" r="30" fill="white"/>
+    </g>
+    
+    {/* Grid pattern */}
+    <g opacity="0.08" stroke="white" strokeWidth="1">
+      <line x1="0" y1="100" x2="600" y2="100"/>
+      <line x1="0" y1="200" x2="600" y2="200"/>
+      <line x1="0" y1="300" x2="600" y2="300"/>
+      <line x1="150" y1="0" x2="150" y2="400"/>
+      <line x1="300" y1="0" x2="300" y2="400"/>
+      <line x1="450" y1="0" x2="450" y2="400"/>
+    </g>
+    
+    {/* Chat bubbles */}
+    <g opacity="0.95" filter="url(#glowChat)">
+      {/* Bubble 1 - Left */}
+      <rect x="100" y="140" width="220" height="70" rx="20" fill="white"/>
+      <path d="M 100,180 L 80,185 L 100,195" fill="white"/>
+      <rect x="120" y="160" width="60" height="8" rx="4" fill="#10b981" opacity="0.3"/>
+      <rect x="120" y="175" width="150" height="8" rx="4" fill="#10b981" opacity="0.3"/>
+      
+      {/* Bubble 2 - Right */}
+      <rect x="280" y="220" width="240" height="70" rx="20" fill="white" opacity="0.9"/>
+      <path d="M 520,260 L 540,265 L 520,275" fill="white" opacity="0.9"/>
+      <rect x="300" y="240" width="80" height="8" rx="4" fill="#0d9488" opacity="0.3"/>
+      <rect x="300" y="255" width="180" height="8" rx="4" fill="#0d9488" opacity="0.3"/>
+      
+      {/* Bubble 3 - Left */}
+      <rect x="120" y="300" width="200" height="60" rx="18" fill="white" opacity="0.85"/>
+      <path d="M 120,330 L 100,335 L 120,345" fill="white" opacity="0.85"/>
+      <rect x="140" y="318" width="70" height="7" rx="3" fill="#06b6d4" opacity="0.3"/>
+      <rect x="140" y="330" width="130" height="7" rx="3" fill="#06b6d4" opacity="0.3"/>
+    </g>
+    
+    {/* Central icon */}
+    <g transform="translate(300, 70)">
+      <circle r="42" fill="white" opacity="0.25"/>
+      <circle r="35" fill="white" opacity="0.3"/>
+      {/* Message icon */}
+      <rect x="-20" y="-15" width="40" height="30" rx="5" fill="none" stroke="white" strokeWidth="2.5"/>
+      <line x1="-15" y1="-8" x2="15" y2="-8" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+      <line x1="-15" y1="0" x2="15" y2="0" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+      <line x1="-15" y1="8" x2="5" y2="8" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+    </g>
+    
+    {/* Connection lines */}
+    <g opacity="0.2" stroke="white" strokeWidth="2" strokeDasharray="5,5">
+      <path d="M 210,175 Q 250,150 280,180"/>
+      <path d="M 400,255 Q 350,280 240,330"/>
+    </g>
+    
+    {/* Floating particles */}
+    <g opacity="0.5">
+      <circle cx="180" cy="110" r="3" fill="white">
+        <animate attributeName="cy" values="110;100;110" dur="3s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="420" cy="190" r="4" fill="white">
+        <animate attributeName="cy" values="190;180;190" dur="3.5s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="350" cy="320" r="2" fill="white">
+        <animate attributeName="cy" values="320;310;320" dur="4s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+    
+    {/* Text */}
+    <text x="300" y="388" textAnchor="middle" fill="white" fontSize="36" fontWeight="bold" fontFamily="system-ui">Omni-Chat</text>
+    
+    {/* Corner decorations */}
+    <g stroke="white" strokeWidth="2" fill="none" opacity="0.3">
+      <path d="M 20,20 L 20,50 M 20,20 L 50,20"/>
+      <path d="M 580,20 L 580,50 M 580,20 L 550,20"/>
+      <path d="M 20,380 L 20,350 M 20,380 L 50,380"/>
+      <path d="M 580,380 L 580,350 M 580,380 L 550,380"/>
+    </g>
+  </svg>

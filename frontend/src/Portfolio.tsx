@@ -1,6 +1,9 @@
 import { useState, useEffect, useRef, type FormEvent } from 'react';
 import { ChevronDown, Mail, ExternalLink, Code, Cpu, Star, Zap, Target, Server} from 'lucide-react';
 import keyloggerImg from "./assets/keylogger.png";
+import ScoopDubImg from "./assets/image.png";
+import chat from "./assets/chat.svg";
+import mailer from "./assets/Mailer.svg";
 import {FaGithub as Github, FaLinkedin as Linkedin} from 'react-icons/fa';
 import FooterPro from './FooterPro';
 
@@ -77,7 +80,7 @@ const Portfolio = () => {
       title: "Application web ScoopDub",
       description: "Plateforme web pour découvrir rechercher et publier des événements de musique dub,",
       tech: ["Vue.js", "Symfony", "Postgresql", "API", "Php", "Node.js"],
-      image: "",
+      image: ScoopDubImg,
       link: "https://github.com/dadal560/scoop-dub-symfony-vue",
       details: "Application complète avec système de création d'événement, artiste et API REST pour la synchronisation des données. Architecture MVC avec Symfony et interface réactive avec Vue.js.",
       features: ["API", "Base de données relationnelle"]
@@ -87,10 +90,10 @@ const Portfolio = () => {
       title: "Omni-Chat",
       description: "Projet collaboratif de messagerie multi-plateforme intégrant plusieurs services dans une interface unique.",
       tech: ["Vue.js", "Node.js", "Symfony", "API", "Lua", "Java"],
-      image: "https://images.unsplash.com/photo-1581091215361-8c1c4dc9fa6d?w=600&h=400&fit=crop",
+      image: chat,
       link: "https://github.com/KyozuFR/Omni-Chat",
-      details: "Plateforme de messagerie unifiée permettant la communication via différents protocoles et services. Architecture microservices avec intégration d'APIs externes et système de notifications en temps réel.",
-      features: ["Messagerie temps réel", "Multi-protocoles", "Interface unifiée", "Notifications push"]
+      details: "messagerie unifiée sur toute les plateformes permettant la communication via différents services.intégration d'APIs et système de notifications en temps réel avec base de donnée des messages.",
+      features: ["Messagerie temps réel", "unifiée", "Notifications push"]
     },
     {
       id: 3,
@@ -107,7 +110,7 @@ const Portfolio = () => {
       title: "Mailer Flask",
       description: "Une application web Flask simple permettant d'envoyer des emails via un formulaire de contact sécurisé.",
       tech: ["Python", "Flask", "Flask-Mail", "Flask-WTF"],
-      image: "https://images.unsplash.com/photo-1585397072889-29b7be9b8a0c?w=600&h=400&fit=crop",
+      image: mailer,
       link: "https://github.com/dadal560/flask-mailer",
       details: "Service de mail sécurisé avec validation des formulaires, protection CSRF, logging des actions et gestion des erreurs. Interface simple et API claire pour intégration facile.",
       features: ["Validation sécurisée", "Protection CSRF", "Logging avancé"]

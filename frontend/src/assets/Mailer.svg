@@ -1,0 +1,87 @@
+<svg viewBox="0 0 600 400" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="flaskGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#2563eb" />
+        <stop offset="50%" stopColor="#4f46e5" />
+        <stop offset="100%" stopColor="#7c3aed" />
+      </linearGradient>
+      <filter id="glowFlask">
+        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+        <feMerge>
+          <feMergeNode in="coloredBlur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+    </defs>
+    
+    {/* Background gradient */}
+    <rect width="600" height="400" fill="url(#flaskGradient)"/>
+    
+    {/* Decorative circles */}
+    <g opacity="0.15">
+      <circle cx="100" cy="80" r="40" fill="white"/>
+      <circle cx="500" cy="320" r="60" fill="white"/>
+      <circle cx="450" cy="100" r="30" fill="white"/>
+      <circle cx="150" cy="350" r="45" fill="white"/>
+      <circle cx="520" cy="150" r="25" fill="white"/>
+    </g>
+    
+    {/* Grid pattern */}
+    <g opacity="0.08" stroke="white" strokeWidth="1">
+      <line x1="0" y1="100" x2="600" y2="100"/>
+      <line x1="0" y1="200" x2="600" y2="200"/>
+      <line x1="0" y1="300" x2="600" y2="300"/>
+      <line x1="150" y1="0" x2="150" y2="400"/>
+      <line x1="300" y1="0" x2="300" y2="400"/>
+      <line x1="450" y1="0" x2="450" y2="400"/>
+    </g>
+    
+    {/* Main envelope */}
+    <g transform="translate(300, 200)" filter="url(#glowFlask)">
+      {/* Envelope body */}
+      <rect x="-90" y="-55" width="180" height="110" fill="white" opacity="0.95" rx="10"/>
+      
+      {/* Envelope flap */}
+      <path d="M -90,-55 L 0,15 L 90,-55" fill="none" stroke="#4f46e5" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M -90,-55 L 0,15 L 90,-55 Z" fill="#6366f1" opacity="0.4"/>
+      
+      {/* Envelope details */}
+      <line x1="-70" y1="-20" x2="70" y2="-20" stroke="#4f46e5" strokeWidth="2" opacity="0.3"/>
+      <line x1="-70" y1="0" x2="70" y2="0" stroke="#4f46e5" strokeWidth="2" opacity="0.3"/>
+      <line x1="-70" y1="20" x2="40" y2="20" stroke="#4f46e5" strokeWidth="2" opacity="0.3"/>
+    </g>
+    
+    {/* Mail icon circle */}
+    <g transform="translate(300, 80)">
+      <circle r="38" fill="white" opacity="0.25"/>
+      <circle r="32" fill="white" opacity="0.3"/>
+      {/* Mail icon */}
+      <rect x="-18" y="-12" width="36" height="24" fill="none" stroke="white" strokeWidth="2.5" rx="3"/>
+      <path d="M -18,-12 L 0,0 L 18,-12" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+    </g>
+    
+    {/* Floating particles */}
+    <g opacity="0.4">
+      <circle cx="200" cy="100" r="3" fill="white">
+        <animate attributeName="cy" values="100;90;100" dur="3s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="400" cy="280" r="4" fill="white">
+        <animate attributeName="cy" values="280;270;280" dur="4s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="480" cy="200" r="2" fill="white">
+        <animate attributeName="cy" values="200;190;200" dur="3.5s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+    
+    {/* Text */}
+    <text x="300" y="320" textAnchor="middle" fill="white" fontSize="36" fontWeight="bold" fontFamily="system-ui">Flask Mailer</text>
+    <text x="300" y="355" textAnchor="middle" fill="#bfdbfe" fontSize="18" fontFamily="system-ui">Secure Email Service</text>
+    
+    {/* Corner decorations */}
+    <g stroke="white" strokeWidth="2" fill="none" opacity="0.3">
+      <path d="M 20,20 L 20,50 M 20,20 L 50,20"/>
+      <path d="M 580,20 L 580,50 M 580,20 L 550,20"/>
+      <path d="M 20,380 L 20,350 M 20,380 L 50,380"/>
+      <path d="M 580,380 L 580,350 M 580,380 L 550,380"/>
+    </g>
+  </svg>
