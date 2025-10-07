@@ -1,32 +1,16 @@
-import { useState, useEffect, useRef, type FormEvent } from 'react';
+import { useState, useEffect, useRef, type FormEvent, lazy, Suspense } from 'react';
 import { ChevronDown, Mail, ExternalLink, Code, Cpu, Star, Zap, Target, Server} from 'lucide-react';
 import keyloggerImg from "./assets/keylogger.png";
 import ScoopDubImg from "./assets/image.png";
 import chat from "./assets/chat.svg";
 import mailer from "./assets/Mailer.svg";
 import {FaGithub as Github, FaLinkedin as Linkedin} from 'react-icons/fa';
-import FooterPro from './FooterPro';
 
+// Import du service API
+import { sendEmail as apiSendEmail } from './service/api';
 
-
-// Service pour appeler l'API Flask
-
-const sendEmail = async (email: string, subject: string, message: string) => {
-  try {
-    const res = await fetch('http://127.0.0.1:5000/send-email', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-      body: JSON.stringify({ email, subject, message }),
-    });
-    return await res.json();
-  } catch (err: unknown) {
-    if (err instanceof Error) {
-      return { status: 'error', message: err.message };
-    }
-    return { status: 'error', message: 'Erreur inconnue' };
-  }
-};
+// Lazy loading du Footer
+const FooterPro = lazy(() => import('./FooterPro'));
 
 const Portfolio = () => {
   const [scrollY, setScrollY] = useState(0);
@@ -45,6 +29,19 @@ const Portfolio = () => {
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Détecter si mobile pour réduire les animations
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -65,14 +62,33 @@ const Portfolio = () => {
   
   const handleSendEmail = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const response = await sendEmail(email, subject, message);
-    setStatus(response.message);
-    if (response.status === 'success') {
-      setEmail('');
-      setSubject('');
-      setMessage('');
+    
+    // Éviter les double-soumissions
+    if (isSubmitting) return;
+    
+    setIsSubmitting(true);
+    setStatus('Envoi en cours...');
+    
+    try {
+      const response = await apiSendEmail(email, subject, message);
+      setStatus(response.message);
+      
+      if (response.status === 'success') {
+        // Réinitialiser le formulaire
+        setEmail('');
+        setSubject('');
+        setMessage('');
+        
+        // Auto-clear le message de succès après 5 secondes
+        setTimeout(() => setStatus(''), 5000);
+      }
+    } finally {
+      setIsSubmitting(false);
     }
   };
+
+  // Nombre de particules adapté au device
+  const particleCount = isMobile ? 10 : 30;
 
   const projects = [
     {
@@ -191,7 +207,8 @@ const Portfolio = () => {
           style={{
             backgroundImage: `url('https://upload.wikimedia.org/wikipedia/commons/d/d1/Destruction_of_Pompeii_and_Herculaneum.jpg')`,
             transform: `translateY(${scrollY * 0.5}px) scale(${1 + scrollY * 0.0005})`,
-            filter: 'brightness(0.25) contrast(1.3) saturate(1.2)'
+            filter: 'brightness(0.25) contrast(1.3) saturate(1.2)',
+            backgroundColor: '#1a1a1a', // Placeholder color
           }}
         />
         
@@ -208,7 +225,7 @@ const Portfolio = () => {
         {/* Particules flottantes */}
         {animationsEnabled && (
         <div className="absolute inset-0 overflow-hidden">
-          {[...Array(30)].map((_, i) => {
+          {[...Array(particleCount)].map((_, i) => {
             const size = Math.random() * 8 + 2;
             const duration = Math.random() * 15 + 10;
             const delay = Math.random() * 5;
@@ -236,14 +253,14 @@ const Portfolio = () => {
         </div>
         )}
 
-        {/* Contenu principal */}
+        {/* Contenu principal - REST OF THE CODE STAYS THE SAME */}
         <div className={`relative z-10 text-center px-8 transform transition-all duration-2000 ${
           isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'
         }`}>
           <div className="relative">
             <h1 className="text-7xl md:text-9xl font-bold mb-6 bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 bg-clip-text text-transparent relative">
               Gwendal Henry
-              {animationsEnabled && (
+              {animationsEnabled && !isMobile && (
                 <>
                   <span className="absolute top-3 left-0 text-7xl md:text-9xl font-bold opacity-22 animate-glitch-1" style={{color: 'rgb(255, 107, 107)'}}>
                     Gwendal Henry</span>
@@ -635,7 +652,7 @@ const Portfolio = () => {
         </div>
       </div>
 
-      {/* Projects Section avec cartes 3D semi-rotation */}
+      {/* Projects Section - GARDER TOUT LE CODE DES PROJETS IDENTIQUE */}
       <section id="projects" className="py-20 px-8 bg-gradient-to-b from-slate-900 via-gray-900 to-slate-950 relative">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
@@ -679,6 +696,7 @@ const Portfolio = () => {
                         src={project.image} 
                         alt={project.title}
                         className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
+                        loading="lazy"
                       />
                       
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
@@ -688,6 +706,7 @@ const Portfolio = () => {
                         <button
                           onClick={() => handleCardFlip(project.id)}
                           className="p-3 bg-black/50 backdrop-blur-md rounded-xl border border-white/20 hover:bg-amber-500/20 hover:border-amber-500/40 transition-all duration-300 hover:scale-110 hover:rotate-12"
+                          aria-label="Voir les détails"
                         >
                           <Code className="w-4 h-4 text-white" />
                         </button>
@@ -696,6 +715,7 @@ const Portfolio = () => {
                           target="_blank" 
                           rel="noopener noreferrer"
                           className="p-3 bg-black/50 backdrop-blur-md rounded-xl border border-white/20 hover:bg-blue-500/20 hover:border-blue-500/40 transition-all duration-300 hover:scale-110"
+                          aria-label="Voir le projet"
                         >
                           <ExternalLink className="w-4 h-4 text-white" />
                         </a>
@@ -766,6 +786,7 @@ const Portfolio = () => {
                         <button
                           onClick={() => handleCardFlip(project.id)}
                           className="p-2 bg-amber-500/20 hover:bg-amber-500/30 rounded-xl border border-amber-500/50 hover:border-amber-400/70 transition-all duration-300 hover:rotate-180"
+                          aria-label="Retourner la carte"
                         >
                           <ExternalLink className="w-5 h-5 text-amber-400 transform rotate-45" />
                         </button>
@@ -937,53 +958,78 @@ const Portfolio = () => {
                     <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">Email *</label>
                     <input 
                       type="email" 
+                      id="email"
                       placeholder="votre@email.com" 
                       value={email} 
                       onChange={(e) => setEmail(e.target.value)} 
                       required 
-                      className="w-full px-4 py-4 rounded-2xl bg-slate-800/60 text-amber-100 border border-slate-600/50 focus:outline-none focus:border-amber-500/60 focus:bg-slate-800/80 transition-all duration-300 backdrop-blur-sm placeholder-amber-100/40"
+                      disabled={isSubmitting}
+                      className="w-full px-4 py-4 rounded-2xl bg-slate-800/60 text-amber-100 border border-slate-600/50 focus:outline-none focus:border-amber-500/60 focus:bg-slate-800/80 transition-all duration-300 backdrop-blur-sm placeholder-amber-100/40 disabled:opacity-50 disabled:cursor-not-allowed"
                     />
                   </div>
                   <div className="group">
-                    <label htmlFor="sujet" className="block text-sm font-medium text-amber-100/80 mb-2">Sujet</label>
+                    <label htmlFor="subject" className="block text-sm font-medium text-amber-100/80 mb-2">Sujet</label>
                     <input 
                       type="text" 
+                      id="subject"
                       placeholder="Sujet de votre message" 
                       value={subject} 
                       onChange={(e) => setSubject(e.target.value)} 
-                      className="w-full px-4 py-4 rounded-2xl bg-slate-800/60 text-amber-100 border border-slate-600/50 focus:outline-none focus:border-amber-500/60 focus:bg-slate-800/80 transition-all duration-300 backdrop-blur-sm placeholder-amber-100/40"
+                      disabled={isSubmitting}
+                      maxLength={150}
+                      className="w-full px-4 py-4 rounded-2xl bg-slate-800/60 text-amber-100 border border-slate-600/50 focus:outline-none focus:border-amber-500/60 focus:bg-slate-800/80 transition-all duration-300 backdrop-blur-sm placeholder-amber-100/40 disabled:opacity-50 disabled:cursor-not-allowed"
                     />
                   </div>
                 </div>
                 <div className="group">
-                  <label htmlFor="message" className="block text-sm font-medium text-amber-100/80 mb-2">Message *</label>
+                  <label htmlFor="message" className="block text-sm font-medium text-amber-100/80 mb-2">
+                    Message * 
+                    <span className="text-xs text-gray-500 ml-2">
+                      ({message.length}/2000)
+                    </span>
+                  </label>
                   <textarea 
+                    id="message"
                     placeholder="Décrivez votre projet ou votre idée..." 
                     value={message} 
                     onChange={(e) => setMessage(e.target.value)} 
                     required 
                     rows={6}
-                    className="w-full px-4 py-4 rounded-2xl bg-slate-800/60 text-amber-100 border border-slate-600/50 focus:outline-none focus:border-amber-500/60 focus:bg-slate-800/80 transition-all duration-300 backdrop-blur-sm resize-none placeholder-amber-100/40"
+                    disabled={isSubmitting}
+                    maxLength={2000}
+                    className="w-full px-4 py-4 rounded-2xl bg-slate-800/60 text-amber-100 border border-slate-600/50 focus:outline-none focus:border-amber-500/60 focus:bg-slate-800/80 transition-all duration-300 backdrop-blur-sm resize-none placeholder-amber-100/40 disabled:opacity-50 disabled:cursor-not-allowed"
                   />
                 </div>
                 <button 
                   type="submit" 
-                  className="group w-full px-8 py-4 bg-gradient-to-r from-amber-500 via-orange-500 to-red-600 rounded-2xl font-semibold text-lg transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/40 relative overflow-hidden"
+                  disabled={isSubmitting}
+                  className="group w-full px-8 py-4 bg-gradient-to-r from-amber-500 via-orange-500 to-red-600 rounded-2xl font-semibold text-lg transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/40 relative overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                   onMouseEnter={() => setCursorVariant('hover')}
                   onMouseLeave={() => setCursorVariant('default')}
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                   <div className="relative flex items-center justify-center">
-                    <Mail className="mr-3 w-5 h-5" />
-                    Envoyer le message
-                    <div className="ml-3 w-2 h-2 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    {isSubmitting ? (
+                      <>
+                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-3" />
+                        Envoi en cours...
+                      </>
+                    ) : (
+                      <>
+                        <Mail className="mr-3 w-5 h-5" />
+                        Envoyer le message
+                        <div className="ml-3 w-2 h-2 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      </>
+                    )}
                   </div>
                 </button>
               </form>
               {status && (
-                <div className={`mt-6 p-4 rounded-2xl border backdrop-blur-sm ${
-                  status.includes('succès') 
+                <div className={`mt-6 p-4 rounded-2xl border backdrop-blur-sm animate-fadeInUp ${
+                  status.includes('succès') || status.includes('✅')
                     ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' 
+                    : status.includes('en cours')
+                    ? 'bg-blue-500/10 border-blue-500/30 text-blue-400'
                     : 'bg-red-500/10 border-red-500/30 text-red-400'
                 }`}>
                   <p className="font-medium">{status}</p>
@@ -1012,6 +1058,7 @@ const Portfolio = () => {
                     className="group p-4 bg-gradient-to-br from-slate-800/60 to-gray-900/60 rounded-2xl hover:from-amber-500/20 hover:to-orange-600/20 transition-all duration-300 hover:scale-110 hover:shadow-xl hover:shadow-amber-500/30 border border-slate-700/50 hover:border-amber-500/50 backdrop-blur-sm"
                     onMouseEnter={() => setCursorVariant('hover')}
                     onMouseLeave={() => setCursorVariant('default')}
+                    aria-label="GitHub"
                   >
                     <Github className="w-8 h-8 text-amber-100/70 group-hover:text-amber-300 transition-colors" />
                   </a>
@@ -1022,6 +1069,7 @@ const Portfolio = () => {
                     className="group p-4 bg-gradient-to-br from-slate-800/60 to-gray-900/60 rounded-2xl hover:from-blue-600/20 hover:to-blue-700/20 transition-all duration-300 hover:scale-110 hover:shadow-xl hover:shadow-blue-500/30 border border-slate-700/50 hover:border-blue-500/50 backdrop-blur-sm"
                     onMouseEnter={() => setCursorVariant('hover')}
                     onMouseLeave={() => setCursorVariant('default')}
+                    aria-label="LinkedIn"
                   >
                     <Linkedin className="w-8 h-8 text-amber-100/70 group-hover:text-blue-300 transition-colors" />
                   </a>
@@ -1048,8 +1096,14 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <FooterPro />
+      {/* Footer avec lazy loading */}
+      <Suspense fallback={
+        <div className="min-h-[200px] bg-black flex items-center justify-center">
+          <div className="animate-spin w-8 h-8 border-2 border-amber-500 border-t-transparent rounded-full" />
+        </div>
+      }>
+        <FooterPro />
+      </Suspense>
     </div>
   );
 };
