@@ -12,6 +12,7 @@ main = Blueprint("main", __name__)
 # Regex pour validation email plus stricte
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
 
+
 def valide_email(email: str) -> bool:
     """Valide le format de l'email"""
     if not email or len(email) > 120:
