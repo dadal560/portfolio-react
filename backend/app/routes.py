@@ -19,7 +19,7 @@ def valide_email(email: str) -> bool:
         return False
     
     # Vérifier avec parseaddr (sécurité)
-    name, addr = parseaddr(email)
+    _, addr = parseaddr(email)
     if not addr:
         return False
     
