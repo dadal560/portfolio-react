@@ -19,7 +19,7 @@ python-dotenv==1.0.0
 #gunicorn==21.2.0
 
 # OPTIONAL: REDIS FOR RATE LIMITING
-# redis==5.0.1
+redis==5.0.1
 # limits[redis]==3.7.0
 
 # DEVELOPMENT ONLY (Don't install in production)
