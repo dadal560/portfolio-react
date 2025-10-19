@@ -167,8 +167,7 @@ def test():
         "status": "success",
         "message": "API is working",
         "endpoints": {
-            "/api/send-email": "POST - Send contact form email",
-            "/api/test": "GET - Test endpoint",
+            "/api": "POST - Send contact form email",
             "/health": "GET - Health check"
         }
     }), 200
