@@ -42,7 +42,7 @@ def sanitize_input(text: str, max_length: int = 2000) -> str:
     return text
 
 
-@main.route("/send-email", methods=["POST"])
+@main.route("/api", methods=["POST"])
 @limiter.limit("5 per hour")  # Maximum 5 emails par heure par IP
 def send_email():
     """Endpoint pour envoyer un email via le formulaire de contact"""

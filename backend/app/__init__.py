@@ -99,7 +99,7 @@ def create_app():
 
     # Import routes avec prefix /api
     from .routes import main
-    app.register_blueprint(main, url_prefix='/api')
+    app.register_blueprint(main)
 
     app.logger.info("Application start")
     

@@ -124,7 +124,7 @@ export const sendEmail = async (
 
     // Envoyer la requête
     const res = await fetchWithRetry(
-      `${API_URL}/api/send-email`,
+      `${API_URL}/api`,
       {
         method: 'POST',
         headers: { 
