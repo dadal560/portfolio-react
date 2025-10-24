@@ -1026,7 +1026,7 @@ const Portfolio = () => {
               </form>
               {status && (
                 <div className={`mt-6 p-4 rounded-2xl border backdrop-blur-sm animate-fadeInUp ${
-                  status.includes('succès') || status.includes('✅')
+                  status.includes('succès')
                     ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' 
                     : status.includes('en cours')
                     ? 'bg-blue-500/10 border-blue-500/30 text-blue-400'
