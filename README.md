@@ -255,28 +255,7 @@ server {
     error_log /var/log/nginx/portfolio.error.log;
 }
 
-# Configuration globale (dans nginx.conf)
-http {
-    # Limitation du taux pour le contact
-    limit_req_zone $binary_remote_addr zone=contact:10m rate=2r/m;
-    
-    # Compression
-    gzip on;
-    gzip_vary on;
-    gzip_min_length 1024;
-    gzip_types
-        text/plain
-        text/css
-        text/xml
-        text/javascript
-        application/javascript
-        application/xml+rss
-        application/json
-        font/truetype
-        font/opentype
-        application/vnd.ms-fontobject
-        image/svg+xml;
-}
+
 ```
 
 ### Service systemd pour Flask Mailer
