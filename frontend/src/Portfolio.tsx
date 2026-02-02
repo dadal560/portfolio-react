@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, type FormEvent, lazy, Suspense } from 'react';
-import { ChevronDown, Mail, ExternalLink, Code, Cpu, Star, Zap, Target, Server} from 'lucide-react';
+import { ChevronDown, Mail, ExternalLink, Code, Cpu, Star, Zap, Target, Server, Layout} from 'lucide-react';
 import keyloggerImg from "./assets/keylogger.png";
 import ScoopDubImg from "./assets/image.png";
 import chat from "./assets/chat.svg";
@@ -134,45 +134,53 @@ const Portfolio = () => {
   ];
 
   const skills = [
-    { 
-      category: "Programming Languages",
-      icon: Code, 
-      items: [
-        { name: "JavaScript", level: "Intermédiaire", color: "bg-yellow-500" },
-        { name: "Python", level: "Avancé", color: "bg-blue-500" },
-        { name: "PHP", level: "Avancé", color: "bg-purple-500" },
-        { name: "Java", level: "Avancé", color: "bg-red-500" },
-        { name: "Lua", level: "Débutant", color: "bg-indigo-500" },
-        { name: "C", level: "Intermédiaire", color: "bg-green-500" }
-      ],
-      color: "from-amber-500 to-orange-600",
-      description: "Langages que je maîtrise pour créer des solutions robustes"
-    },
-    { 
-      category: "Tools & Frameworks",
-      icon: Cpu, 
-      items: [
-        { name: "Vue.js", level: "Avancé", color: "bg-green-500" },
-        { name: "React", level: "Intermédiaire", color: "bg-cyan-500" },
-        { name: "Node.js", level: "Avancé", color: "bg-green-600" },
-        { name: "Symfony", level: "Avancé", color: "bg-gray-600" },
-        { name: "PostgreSQL", level: "Avancé", color: "bg-blue-600" }
-      ],
-      color: "from-orange-600 to-red-600",
-      description: "Frameworks et outils pour développer des applications modernes"
-    },
-    { 
-      category: "Cybersecurity & DevOps",
-      icon: Server, 
-      items: [
-        { name: "Wireshark", level: "Intermédiaire", color: "bg-blue-700" },
-        { name: "Docker", level: "Débutant", color: "bg-blue-400" },
-        { name: "Git", level: "Avancé", color: "bg-orange-500" }
-      ],
-      color: "from-red-600 to-rose-600",
-      description: "Sécurité, tests de pénétration et outils DevOps"
-    }
-  ];
+  { 
+    category: "Systèmes & Signal",
+    icon: Cpu, // Ou une icône de processeur/onde
+    items: [
+      { name: "C", level: "Intermédiaire", color: "bg-green-500" },
+      { name: "Python", level: "Avancé", color: "bg-blue-500" },
+      { name: "Traitement du Signal", level: "Intermédiaire", color: "bg-indigo-600" },
+      { name: "Matplotlib", level: "Intermédiaire", color: "bg-orange-400" },
+    ],
+    color: "from-slate-700 to-slate-900",
+    description: "Développement bas niveau, algorithmes de traitement audio et systèmes embarqués."
+  },
+  { 
+    category: "Backend & Logiciel",
+    icon: Code, 
+    items: [
+      { name: "Java", level: "Avancé", color: "bg-red-500" },
+      { name: "PHP (Symfony)", level: "Avancé", color: "bg-purple-500" },
+      { name: "Node.js", level: "Intermédiaire", color: "bg-green-600" },
+      { name: "PostgreSQL", level: "Intermédiaire", color: "bg-blue-600" }
+    ],
+    color: "from-blue-600 to-indigo-700",
+    description: "Conception d'architectures robustes, API REST et gestion de bases de données."
+  },
+  { 
+    category: "Cybersecurity & DevOps",
+    icon: Server, 
+    items: [
+      { name: "Wireshark", level: "Intermédiaire", color: "bg-blue-700" },
+      { name: "Docker", level: "Débutant", color: "bg-blue-400" },
+      { name: "Git", level: "Intermédiaire", color: "bg-orange-500" }
+    ],
+    color: "from-red-600 to-rose-600",
+    description: "Sécurité réseau, analyse de trames et conteneurisation."
+  },
+  { 
+    category: "Frontend & Web",
+    icon: Layout, // Assure-toi d'importer Layout depuis Lucide
+    items: [
+      { name: "Vue.js", level: "Avancé", color: "bg-green-500" },
+      { name: "React", level: "Intermédiaire", color: "bg-cyan-500" },
+      { name: "JavaScript", level: "Intermédiaire", color: "bg-yellow-500" }
+    ],
+    color: "from-emerald-500 to-teal-600",
+    description: "Interfaces modernes et réactives pour la visualisation de données."
+  }
+];
 
   const handleCardFlip = (cardId: number) => {
     const cardElement = document.querySelector(`[data-project-id="${cardId}"]`);
