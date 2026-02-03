@@ -2,8 +2,8 @@ import { useState, useEffect, useRef, type FormEvent, lazy, Suspense } from 'rea
 import { ChevronDown, Mail, ExternalLink, Code, Cpu, Star, Zap, Target, Server, Layout} from 'lucide-react';
 import keyloggerImg from "./assets/keylogger.png";
 import ScoopDubImg from "./assets/image.png";
+import ecgProjectImg from "./assets/ecg_project.png";
 import chat from "./assets/chat.svg";
-import mailer from "./assets/Mailer.svg";
 import {FaGithub as Github, FaLinkedin as Linkedin} from 'react-icons/fa';
 
 // Import du service API
@@ -122,14 +122,14 @@ const Portfolio = () => {
       features: [ "Code documenté", "Objectif pédagogique", "Bonnes pratiques"]
     },
     {
-      id: 4,
-      title: "Mailer Flask",
-      description: "Une application web Flask simple permettant d'envoyer des emails via un formulaire de contact sécurisé.",
-      tech: ["Python", "Flask", "Flask-Mail", "Flask-WTF"],
-      image: mailer,
-      link: "https://github.com/dadal560/flask-mailer",
-      details: "Service de mail sécurisé avec validation des formulaires, protection CSRF, logging des actions et gestion des erreurs. Interface simple et API claire pour intégration facile.",
-      features: ["Validation sécurisée", "Protection CSRF", "Logging avancé"]
+      id: 4, // À mettre en haut de liste
+      title: "IA & Signal : Détection d'Anomalies ECG",
+      description: "Identification de pathologies cardiaques via Auto-encodeur Convolutionnel (AE-CNN).",
+      tech: ["Python", "TensorFlow", "Signal Processing", "NumPy"],
+      image: ecgProjectImg,
+      link: "https://github.com/dadal560/detection-anomalies-ecg", 
+      details: "Développement d'un modèle semi-supervisé capable de détecter 100% des anomalies de Classe V. Optimisation pour l'embarqué avec un temps d'inférence de 97,33 ms.",
+      features: ["Inférence : 97,33 ms", "Rappel : 100% sur classe V", "Architecture CNN"]
     }
   ];
 
@@ -530,13 +530,11 @@ const Portfolio = () => {
                 À propos
               </h2>
               <p className="text-xl text-gray-300 mb-6 leading-relaxed">
-                Actuellement en L3 Informatique à l'Université de La Rochelle, 
-                je développe des applications web robustes tout en intégrant les meilleures pratiques de cybersécurité.
+                Étudiant en L3 Informatique à La Rochelle, je me spécialise dans la conception d'architectures Backend et le traitement numérique du signal
               </p>
               <p className="text-lg text-gray-400 mb-8 leading-relaxed">
-                Inspiré par l'innovation technologique et sécurité, 
-                j'allie backend, interfaces modernes et bonnes pratiques 
-                cybersécurité pour donner vie à des projets créatifs et accessibles.
+                Passionné par les systèmes bas niveau, je développe des solutions performantes en Python et C où la cybersécurité et 
+                l'accessibilité sont intégrées dès la phase de conception
               </p>
               
               {/* Skills avec design moderne et niveaux */}
