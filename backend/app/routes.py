@@ -146,7 +146,7 @@ Cet email a été envoyé depuis le formulaire de contact du portfolio.
         
         return jsonify({
             "status": "success",
-            "message": "Message envoyé avec succès ✅"
+            "message": "Message envoyé avec succès"
         }), 200
         
     except Exception:

@@ -3,6 +3,11 @@ import { ChevronDown, Mail, ExternalLink, Code, Cpu, Star, Zap, Target, Server, 
 import ScoopDubImg from "./assets/image.png";
 import ecgProjectImg from "./assets/ecg_project.png";
 import {FaGithub as Github, FaLinkedin as Linkedin} from 'react-icons/fa';
+import emgImg from "./assets/emg_classification.png";
+import cvImg from "./assets/cv_toolbox_portfolio.png";
+
+
+
 
 // Import du service API
 import { sendEmail as apiSendEmail } from './service/api';
@@ -94,7 +99,7 @@ const projects = [
     title: "Computer Vision Toolbox",
     description: "Scripts Python/OpenCV temps réel : calibration, détection d'objets, flux optique, pose ArUco et filtres faciaux.",
     tech: ["Python", "OpenCV", "Computer Vision", "ArUco", "Haar Cascade"],
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/EMG_signal.png/640px-EMG_signal.png",
+    image: cvImg,
     link: "https://github.com/dadal560/Computer-Vision-Toolbox",
     details: "Boîte à outils de vision par ordinateur en temps réel couvrant la calibration caméra, la détection d'objets, l'estimation de pose via marqueurs ArUco et des filtres faciaux interactifs.",
     features: ["Calibration caméra", "Détection temps réel", "Estimation de pose ArUco", "Filtres faciaux"]
@@ -114,7 +119,7 @@ const projects = [
     title: "Classification de gestes EMG",
     description: "Analyse de signaux électromyographiques sous MATLAB : détection et classification des gestes 'Double Tap' et 'Fist'.",
     tech: ["MATLAB", "Signal Processing", "Machine Learning", "sEMG"],
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/EMG_signal.png/640px-EMG_signal.png",
+    image: emgImg,
     link: "https://github.com/dadal560/matlab-emg-classification",
     details: "Analyse de signaux sEMG avec segmentation automatique, extraction de features et classification de gestes via des algorithmes de machine learning sous MATLAB.",
     features: ["Segmentation automatique", "Extraction de features", "Classification multi-gestes", "Pipeline complet"]
@@ -528,11 +533,15 @@ const projects = [
                 À propos
               </h2>
               <p className="text-xl text-gray-300 mb-6 leading-relaxed">
-                Étudiant en L3 Informatique à La Rochelle, je me spécialise dans la conception d'architectures Backend et le traitement numérique du signal
+                  Étudiant en informatique passionné par les systèmes intelligents, 
+                  je me spécialise dans la vision par ordinateur, le traitement du signal 
+                  et l'intelligence artificielle appliquée.
               </p>
               <p className="text-lg text-gray-400 mb-8 leading-relaxed">
-                Passionné par les systèmes bas niveau, je développe des solutions performantes en Python et C où la cybersécurité et 
-                l'accessibilité sont intégrées dès la phase de conception
+                  De la détection d'anomalies cardiaques à la classification de gestes EMG, 
+                  en passant par la vision temps réel avec OpenCV, je conçois des solutions 
+                  performantes où le bas niveau rencontre l'IA — avec la cybersécurité 
+                  intégrée dès la conception.
               </p>
               
               {/* Skills avec design moderne et niveaux */}
@@ -772,7 +781,7 @@ const projects = [
 
                         <div className="flex items-center gap-1">
                           <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-                          <span className="text-xs text-gray-500">2024</span>
+                          <span className="text-xs text-gray-500">2025</span>
                         </div>
                       </div>
                     </div>
