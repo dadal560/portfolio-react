@@ -1,9 +1,7 @@
 import { useState, useEffect, useRef, type FormEvent, lazy, Suspense } from 'react';
 import { ChevronDown, Mail, ExternalLink, Code, Cpu, Star, Zap, Target, Server, Layout} from 'lucide-react';
-import keyloggerImg from "./assets/keylogger.png";
 import ScoopDubImg from "./assets/image.png";
 import ecgProjectImg from "./assets/ecg_project.png";
-import chat from "./assets/chat.svg";
 import {FaGithub as Github, FaLinkedin as Linkedin} from 'react-icons/fa';
 
 // Import du service API
@@ -90,48 +88,48 @@ const Portfolio = () => {
   // Nombre de particules adapté au device
   const particleCount = isMobile ? 10 : 30;
 
-  const projects = [
-    {
-      id: 1,
-      title: "Application web ScoopDub",
-      description: "Plateforme web pour découvrir, rechercher et publier des événements de musique dub,",
-      tech: ["Vue.js", "Symfony", "Postgresql", "API", "Php", "Node.js"],
-      image: ScoopDubImg,
-      link: "https://github.com/dadal560/scoop-dub-symfony-vue",
-      details: "Application complète avec système de création d'événement, artiste et API REST pour la synchronisation des données. Architecture MVC avec Symfony et interface réactive avec Vue.js.",
-      features: ["API", "Base de données relationnelle"]
-    },
-    {
-      id: 2,
-      title: "Omni-Chat",
-      description: "Projet collaboratif de messagerie multi-plateforme intégrant plusieurs services.",
-      tech: ["Vue.js", "Node.js", "Symfony", "API", "Lua", "Java"],
-      image: chat,
-      link: "https://github.com/KyozuFR/Omni-Chat",
-      details: "messagerie unifiée sur toute les plateformes permettant la communication via différents services.intégration d'APIs et système de notifications en temps réel avec base de donnée des messages.",
-      features: ["Messagerie temps réel", "unifiée", "Notifications push"]
-    },
-    {
-      id: 3,
-      title: "Educational keylogger",
-      description: "Projet éducatif open-source illustrant le fonctionnement d'un keylogger basique en Python.",
-      tech: ["Python"],
-      image: keyloggerImg,
-      link: "https://github.com/dadal560/educational-keylogger",
-      details: "Outil éducatif développé dans un contexte pédagogique pour comprendre les mécanismes de capture d'événements système. Inclut des explications détaillées et des mesures de protection.",
-      features: [ "Code documenté", "Objectif pédagogique", "Bonnes pratiques"]
-    },
-    {
-      id: 4, // À mettre en haut de liste
-      title: "IA & Signal : Détection d'Anomalies ECG",
-      description: "Identification de pathologies cardiaques via Auto-encodeur Convolutionnel (AE-CNN).",
-      tech: ["Python", "TensorFlow", "Signal Processing", "NumPy"],
-      image: ecgProjectImg,
-      link: "https://github.com/dadal560/detection-anomalies-ecg", 
-      details: "Développement d'un modèle semi-supervisé capable de détecter 100% des anomalies de Classe V. Optimisation pour l'embarqué avec un temps d'inférence de 97,33 ms.",
-      features: ["Inférence : 97,33 ms", "Rappel : 100% sur classe V", "Architecture CNN"]
-    }
-  ];
+const projects = [
+  {
+    id: 1,
+    title: "Computer Vision Toolbox",
+    description: "Scripts Python/OpenCV temps réel : calibration, détection d'objets, flux optique, pose ArUco et filtres faciaux.",
+    tech: ["Python", "OpenCV", "Computer Vision", "ArUco", "Haar Cascade"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/EMG_signal.png/640px-EMG_signal.png",
+    link: "https://github.com/dadal560/Computer-Vision-Toolbox",
+    details: "Boîte à outils de vision par ordinateur en temps réel couvrant la calibration caméra, la détection d'objets, l'estimation de pose via marqueurs ArUco et des filtres faciaux interactifs.",
+    features: ["Calibration caméra", "Détection temps réel", "Estimation de pose ArUco", "Filtres faciaux"]
+  },
+  {
+    id: 2,
+    title: "IA & Signal : Détection d'Anomalies ECG",
+    description: "Identification de pathologies cardiaques via Auto-encodeur Convolutionnel (AE-CNN).",
+    tech: ["Python", "TensorFlow", "Signal Processing", "NumPy"],
+    image: ecgProjectImg,
+    link: "https://github.com/dadal560/detection-anomalies-ecg",
+    details: "Développement d'un modèle semi-supervisé capable de détecter 100% des anomalies de Classe V. Optimisation pour l'embarqué avec un temps d'inférence de 97,33 ms.",
+    features: ["Inférence : 97,33 ms", "Rappel : 100% sur classe V", "Architecture CNN"]
+  },
+  {
+    id: 3,
+    title: "Classification de gestes EMG",
+    description: "Analyse de signaux électromyographiques sous MATLAB : détection et classification des gestes 'Double Tap' et 'Fist'.",
+    tech: ["MATLAB", "Signal Processing", "Machine Learning", "sEMG"],
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/EMG_signal.png/640px-EMG_signal.png",
+    link: "https://github.com/dadal560/matlab-emg-classification",
+    details: "Analyse de signaux sEMG avec segmentation automatique, extraction de features et classification de gestes via des algorithmes de machine learning sous MATLAB.",
+    features: ["Segmentation automatique", "Extraction de features", "Classification multi-gestes", "Pipeline complet"]
+  },
+  {
+    id: 4,
+    title: "Application web ScoopDub",
+    description: "Plateforme web pour découvrir, rechercher et publier des événements de musique dub.",
+    tech: ["Vue.js", "Symfony", "Postgresql", "API", "Php", "Node.js"],
+    image: ScoopDubImg,
+    link: "https://github.com/dadal560/scoop-dub-symfony-vue",
+    details: "Application complète avec système de création d'événement, artiste et API REST pour la synchronisation des données. Architecture MVC avec Symfony et interface réactive avec Vue.js.",
+    features: ["API REST", "Base de données relationnelle"]
+  },
+];
 
   const skills = [
   { 
